@@ -445,7 +445,7 @@ body{
         </div>
         <div class="slider-row">
           <label>Эргэх хугацаа</label>
-          <input type="range" id="cfg-dur" min="5" max="60" value="10" step="1"
+          <input type="range" id="cfg-dur" min="3" max="60" value="10" step="1"
             oninput="document.getElementById('dur-val').textContent=this.value+'с'">
           <span class="slider-val" id="dur-val">10с</span>
         </div>
@@ -460,7 +460,7 @@ body{
 
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="card-title">Шагналын жагсаалт</div>
+          <div class="card-title">Шагналын жагсаалтны тохиргоо</div>
           <span id="prize-lbl" style="font-size:12px;color:var(--text3);">20 шагнал</span>
         </div>
         <div style="display:flex;padding:0 10px;">
@@ -472,7 +472,7 @@ body{
         <button class="add-btn" onclick="addPrize()">+ Шагнал нэмэх</button>
       </div>
 
-      <button class="start-btn" onclick="startDraw()">Сугалаа эхлүүлэх →</button>
+      <button class="start-btn" onclick="startDraw()">Тохиргоо дууслаа. Сугалааг эхлүүлэх →</button>
     </div>
 
     <!-- DRAW PAGE -->
