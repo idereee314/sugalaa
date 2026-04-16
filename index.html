@@ -35,9 +35,19 @@ body{
   max-width:1600px;
   margin:0 auto;
   display:grid;
-  grid-template-columns:minmax(220px,1fr) minmax(660px,780px) minmax(220px,1fr);
+  grid-template-columns:1fr minmax(660px,780px) 1fr;
   gap:24px;
   align-items:start;
+  justify-content:center;
+}
+.layout-shell.no-side{
+  max-width:780px;
+  grid-template-columns:minmax(660px,780px);
+  justify-content:center;
+}
+.layout-shell.no-side .app{
+  width:100%;
+  margin:0 auto;
 }
 .app{
   width:100%;
@@ -65,7 +75,9 @@ body{
   }
 }
 @media (max-width:1199px){
-  .layout-shell{
+  .layout-shell,
+  .layout-shell.no-side{
+    max-width:780px;
     grid-template-columns:1fr;
   }
   .layout-side{
@@ -290,18 +302,60 @@ body{
 
 /* desc preview box */
 .desc-preview{background:var(--bg2);border-radius:var(--r);padding:10px 14px;margin-top:2px;border:0.5px solid var(--border);}
+
+@media (max-width:768px){
+  body{
+    padding:0.75rem 0.75rem 2rem;
+  }
+  .layout-shell,
+  .layout-shell.no-side{
+    max-width:100%;
+  }
+  .field-row,
+  .slider-row,
+  .font-ctrl-row{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .field-row label,
+  .slider-row label,
+  .font-ctrl-row label{
+    min-width:unset;
+  }
+  .side-imgs-setup{
+    grid-template-columns:1fr;
+  }
+  .stat-grid{
+    grid-template-columns:1fr;
+  }
+  .counter{
+    font-size:56px;
+    min-width:100%;
+    letter-spacing:-2px;
+  }
+  .draw-btn,
+  .next-btn{
+    width:100%;
+  }
+  .pi{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .pi-prog{
+    margin-left:0;
+  }
+}
 </style>
 </head>
 <body>
 
-<div class="layout-shell">
+<div class="layout-shell no-side">
   <div class="layout-side layout-side-left" id="outer-side-left">
     <img id="outer-img-left" src="" alt="">
   </div>
 
   <div class="app">
 
-    <!-- HEADER -->
     <div class="site-header">
       <div class="header-banner" id="header-banner"><img id="banner-img" src="" alt=""></div>
       <div class="header-text">
@@ -320,7 +374,6 @@ body{
       <button class="nav-btn" id="nb-results" onclick="nav('results')">Үр дүн</button>
     </div>
 
-    <!-- SETUP PAGE -->
     <div class="page on" id="pg-setup">
 
       <div class="card">
@@ -437,11 +490,11 @@ body{
         <div class="card-title">Оролцогчийн тохиргоо</div>
         <div class="field-row">
           <label>Нийт оролцогч</label>
-          <input type="number" id="cfg-total" value="1000" min="1" max="99999">
+          <input type="number" id="cfg-total" value="1000" min="1" max="99999" oninput="refreshNumberViews()">
         </div>
         <div class="field-row">
           <label>Эхлэх дугаар</label>
-          <input type="number" id="cfg-start" value="1" min="1" max="99999">
+          <input type="number" id="cfg-start" value="1" min="1" max="99999" oninput="refreshNumberViews()">
         </div>
         <div class="slider-row">
           <label>Эргэх хугацаа</label>
@@ -475,7 +528,6 @@ body{
       <button class="start-btn" onclick="startDraw()">Тохиргоо дууслаа. Сугалааг эхлүүлэх →</button>
     </div>
 
-    <!-- DRAW PAGE -->
     <div class="page" id="pg-draw">
       <div class="side-display" id="side-draw"><img id="sd0" src="" alt=""><img id="sd1" src="" alt=""></div>
       <div class="card" style="padding:.75rem 1rem;">
@@ -505,7 +557,6 @@ body{
       <button class="link-btn" onclick="resetAll()">Дахиулах</button>
     </div>
 
-    <!-- RESULTS PAGE -->
     <div class="page" id="pg-results">
       <div class="side-display" id="side-results"><img id="sr0" src="" alt=""><img id="sr1" src="" alt=""></div>
       <div class="stat-grid">
@@ -562,9 +613,33 @@ let hdrImg='';
 let sideImgs=['',''];
 let drawOrder='asc';
 
-// desc style state
 let descStyle={size:'md',color:'#a0a09a',bold:false,italic:false,align:'left'};
 const fontSizeMap={xs:'11px',sm:'12px',md:'13px',lg:'16px',xl:'20px'};
+
+function getRange(){
+  const total = Math.max(1, parseInt(document.getElementById('cfg-total').value) || 1000);
+  const start = parseInt(document.getElementById('cfg-start').value) || 1;
+  return { start, end:start + total - 1 };
+}
+function getNumberPadLength(){
+  const { end } = getRange();
+  return String(Math.abs(end)).length;
+}
+function formatDrawNumber(num){
+  if(num === null || num === undefined || num === '' || num === '—') return '—';
+  return String(num).padStart(getNumberPadLength(), '0');
+}
+function refreshNumberViews(){
+  if(!rolling){
+    const finished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
+    if(Object.keys(winners).length===0 && !finished){
+      const { start } = getRange();
+      document.getElementById('counter').textContent = formatDrawNumber(start);
+    }
+  }
+  renderDrawPage();
+  renderResults();
+}
 
 function setDrawOrder(o){
   drawOrder=o;
@@ -625,7 +700,6 @@ function applyDescStyle(){
   }
 }
 
-/* header image */
 function setImgType(t){
   hdrType=t;
   ['none','banner','thumb'].forEach(k=>document.getElementById('ibt-'+k).classList.toggle('on',k===t));
@@ -670,14 +744,16 @@ function applyHdrImg(){
   }
 }
 
-/* side images */
 function handleSideImg(e,idx){
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
   r.onload=ev=>{sideImgs[idx]=ev.target.result;applySideImg(idx);};
   r.readAsDataURL(f);
 }
-function removeSideImg(idx){sideImgs[idx]='';applySideImg(idx);}
+function removeSideImg(idx){
+  sideImgs[idx]='';
+  applySideImg(idx);
+}
 function applySideImg(idx){
   const src=sideImgs[idx];
   const prev=document.getElementById('side-prev-'+idx);
@@ -714,9 +790,11 @@ function updateSideDisplays(){
 
   outerLeft.classList.toggle('has-image',!!sideImgs[0]);
   outerRight.classList.toggle('has-image',!!sideImgs[1]);
+
+  const shell = document.querySelector('.layout-shell');
+  shell.classList.toggle('no-side', !any);
 }
 
-/* header text */
 function updateHeader(){
   const t=document.getElementById('cfg-title').value||'Хандивын сугалаа';
   const s=document.getElementById('cfg-subtitle').value.trim();
@@ -739,7 +817,6 @@ function nav(t){
   if(t==='results')renderResults();
 }
 
-/* prize editor */
 function renderEditor(){
   const el=document.getElementById('pe-list');
   const scrollTop=el.scrollTop;
@@ -769,7 +846,10 @@ function handlePrizeImg(e,i){
   r.onload=ev=>{prizes[i].img=ev.target.result;renderEditor();};
   r.readAsDataURL(f);
 }
-function clearPrizeImg(i){prizes[i].img='';renderEditor();}
+function clearPrizeImg(i){
+  prizes[i].img='';
+  renderEditor();
+}
 function addPrize(){
   prizes.push({name:'',value:'',id:Date.now(),img:''});
   renderEditor();
@@ -786,8 +866,9 @@ function delPrize(i){
   renderDrawPage();
 }
 
-/* draw */
-function getDur(){return(parseInt(document.getElementById('cfg-dur').value)||10)*1000;}
+function getDur(){
+  return (parseInt(document.getElementById('cfg-dur').value)||10)*1000;
+}
 function startDraw(){
   prizes=prizes.filter(p=>p.name.trim());
   prizes.forEach((p,i)=>p.id=i+1);
@@ -795,24 +876,24 @@ function startDraw(){
   curIdx=drawOrder==='desc'?prizes.length-1:0;
   document.getElementById('winner-wrap').innerHTML='';
   document.getElementById('next-btn').style.display='none';
-  document.getElementById('counter').textContent='—';
+  const { start } = getRange();
+  document.getElementById('counter').textContent=formatDrawNumber(start);
   document.getElementById('counter').className='counter';
   document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
   document.getElementById('tbar-wrap').style.display='none';
   updateSideDisplays();
   nav('draw');
 }
-function getRange(){
-  const total=parseInt(document.getElementById('cfg-total').value)||1000;
-  const start=parseInt(document.getElementById('cfg-start').value)||1;
-  return{start,end:start+total-1};
+function getUsed(){
+  return new Set(Object.values(winners));
 }
-function getUsed(){return new Set(Object.values(winners));}
 function pickRandom(){
   const{start,end}=getRange();
   const used=getUsed();
   const pool=[];
-  for(let i=start;i<=end;i++){if(!used.has(i))pool.push(i);}
+  for(let i=start;i<=end;i++){
+    if(!used.has(i))pool.push(i);
+  }
   if(!pool.length)return null;
   return pool[Math.floor(Math.random()*pool.length)];
 }
@@ -837,7 +918,7 @@ function renderDrawPage(){
       ${p.img?`<img class="pl-thumb" src="${p.img}">`:''}
       <span class="pl-name">${p.name}</span>
       <span class="pl-val">${p.value}</span>
-      <span class="pl-st ${isDone?'st-d':'st-w'}">${isDone?'№'+won:'...'}</span>
+      <span class="pl-st ${isDone?'st-d':'st-w'}">${isDone?'№'+formatDrawNumber(won):'...'}</span>
     </div>`;
   }).join('');
 
@@ -849,6 +930,11 @@ function renderDrawPage(){
     document.getElementById('pi-prog').textContent=Object.keys(winners).length+' / '+prizes.length;
     document.getElementById('draw-btn').disabled=false;
     document.getElementById('draw-btn').textContent='Сугалах';
+
+    if(!rolling && Object.keys(winners).length===0){
+      const { start } = getRange();
+      document.getElementById('counter').textContent=formatDrawNumber(start);
+    }
   } else {
     document.getElementById('pi-badge').textContent='Дууслаа';
     document.getElementById('pi-name').textContent='Бүх шагнал тараагдлаа!';
@@ -862,7 +948,10 @@ function doDraw(){
   const finished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
   if(rolling||finished)return;
   const final=pickRandom();
-  if(!final){alert('Оролцогч хүрэлцэхгүй байна!');return;}
+  if(!final){
+    alert('Оролцогч хүрэлцэхгүй байна!');
+    return;
+  }
 
   rolling=true;
   document.getElementById('draw-btn').disabled=true;
@@ -891,15 +980,16 @@ function doDraw(){
 
   function tick(ts){
     if(!last)last=ts;
-    elapsed+=ts-last;last=ts;
+    elapsed+=ts-last;
+    last=ts;
     const prog=Math.min(elapsed/dur,1);
     const eased=1-Math.pow(1-prog,3);
-    counter.textContent=Math.round(start+Math.random()*(end-start));
+    counter.textContent=formatDrawNumber(Math.round(start+Math.random()*(end-start)));
 
     if(elapsed<dur){
       setTimeout(()=>requestAnimationFrame(tick),eased>.85?120:eased>.65?60:eased>.4?30:16);
     } else {
-      counter.textContent=final;
+      counter.textContent=formatDrawNumber(final);
       counter.className='counter win';
       hint.textContent='Азтан шалгарлаа!';
       bw.style.display='none';
@@ -911,7 +1001,7 @@ function doDraw(){
       document.getElementById('winner-wrap').innerHTML=`
         <div class="winner-reveal">
           ${p.img?`<img class="wr-img" src="${p.img}" alt="${p.name}">`:''}
-          <div class="wr-top"><div class="wr-num">№ ${final}</div><div class="wr-label">Азтан шалгарлаа!</div></div>
+          <div class="wr-top"><div class="wr-num">№ ${formatDrawNumber(final)}</div><div class="wr-label">Азтан шалгарлаа!</div></div>
           <div class="wr-bottom"><div class="wr-prize">${p.name}</div><div class="wr-val">${p.value}</div></div>
         </div>`;
 
@@ -928,7 +1018,8 @@ function doDraw(){
 function doNext(){
   document.getElementById('winner-wrap').innerHTML='';
   document.getElementById('next-btn').style.display='none';
-  document.getElementById('counter').textContent='—';
+  const { start } = getRange();
+  document.getElementById('counter').textContent=formatDrawNumber(start);
   document.getElementById('counter').className='counter';
   document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
   document.getElementById('tbar-wrap').style.display='none';
@@ -952,7 +1043,7 @@ function renderResults(){
       ${p&&p.img?`<img src="${p.img}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;flex-shrink:0;">`:''}
       <span class="log-badge">${pid}-р</span>
       <span class="log-name">${p?p.name:''}</span>
-      <span class="log-num">№ ${wnum}</span>
+      <span class="log-num">№ ${formatDrawNumber(wnum)}</span>
     </div>`;
   }).join('');
 }
@@ -962,7 +1053,8 @@ function resetAll(){
   curIdx=drawOrder==='desc'?prizes.length-1:0;
   document.getElementById('winner-wrap').innerHTML='';
   document.getElementById('next-btn').style.display='none';
-  document.getElementById('counter').textContent='—';
+  const { start } = getRange();
+  document.getElementById('counter').textContent=formatDrawNumber(start);
   document.getElementById('counter').className='counter';
   document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
   document.getElementById('tbar-wrap').style.display='none';
@@ -971,9 +1063,11 @@ function resetAll(){
 }
 
 renderEditor();
-renderDrawPage();
 updateHeader();
 updateSideDisplays();
+renderDrawPage();
+renderResults();
+refreshNumberViews();
 </script>
 </body>
 </html>
