@@ -6,256 +6,174 @@
 <title>Хандивын сугалаа</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #ffffff;
-    --bg2: #f5f5f4;
-    --bg3: #eeede8;
-    --text: #1a1a1a;
-    --text2: #6b6b6b;
-    --text3: #a0a09a;
-    --border: rgba(0,0,0,0.1);
-    --border2: rgba(0,0,0,0.18);
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --purple-bg: #EEEDFE;
-    --purple-text: #3C3489;
-    --purple: #534AB7;
-    --green-bg: #E1F5EE;
-    --green: #1D9E75;
-    --green-dark: #085041;
-    --green-text: #0F6E56;
-    --green-mid: #9FE1CB;
+    --bg:#ffffff; --bg2:#f5f5f4; --bg3:#eeede8;
+    --text:#1a1a1a; --text2:#6b6b6b; --text3:#a0a09a;
+    --border:rgba(0,0,0,0.1); --border2:rgba(0,0,0,0.18);
+    --radius-md:8px; --radius-lg:12px;
+    --purple-bg:#EEEDFE; --purple-text:#3C3489; --purple:#534AB7;
+    --green-bg:#E1F5EE; --green:#1D9E75; --green-dark:#085041;
+    --green-text:#0F6E56; --green-mid:#9FE1CB;
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a;
-      --bg2: #252523;
-      --bg3: #2e2e2b;
-      --text: #f0efea;
-      --text2: #a8a8a0;
-      --text3: #6b6b65;
-      --border: rgba(255,255,255,0.1);
-      --border2: rgba(255,255,255,0.18);
-      --purple-bg: #26215C;
-      --purple-text: #AFA9EC;
-      --purple: #7F77DD;
-      --green-bg: #04342C;
-      --green: #1D9E75;
-      --green-dark: #9FE1CB;
-      --green-text: #5DCAA5;
-      --green-mid: #085041;
+  @media(prefers-color-scheme:dark){
+    :root{
+      --bg:#1c1c1a; --bg2:#252523; --bg3:#2e2e2b;
+      --text:#f0efea; --text2:#a8a8a0; --text3:#6b6b65;
+      --border:rgba(255,255,255,0.1); --border2:rgba(255,255,255,0.18);
+      --purple-bg:#26215C; --purple-text:#AFA9EC; --purple:#7F77DD;
+      --green-bg:#04342C; --green:#1D9E75; --green-dark:#9FE1CB;
+      --green-text:#5DCAA5; --green-mid:#085041;
     }
   }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg3); color:var(--text); min-height:100vh; padding:1rem 1rem 3rem; }
+  .app { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 1.5rem 1rem 3rem;
-  }
+  /* ── Header ── */
+  .site-header { display:flex; flex-direction:column; gap:0; }
 
-  .app {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
+  /* Banner зураг — бүтэн өргөн, compact өндөр */
+  .header-banner { width:100%; border-radius:var(--radius-lg); overflow:hidden; display:none; }
+  .header-banner img { width:100%; height:180px; object-fit:cover; display:block; }
 
-  .site-header { text-align: center; padding: .5rem 0 .25rem; }
-  .site-header h1 { font-size: 22px; font-weight: 500; color: var(--text); letter-spacing: -.3px; }
-  .site-header p { font-size: 13px; color: var(--text3); margin-top: 3px; }
+  /* Текст мэдээлэл — зурагтай бол доор, эсвэл дангаар */
+  .header-text { display:flex; align-items:center; gap:12px; padding:.6rem 0 .25rem; }
+  .header-thumb { width:52px; height:52px; border-radius:50%; overflow:hidden; flex-shrink:0; display:none; border:2px solid var(--border2); }
+  .header-thumb img { width:100%; height:100%; object-fit:cover; }
+  .header-titles { flex:1; text-align:center; }
+  .header-titles.has-thumb { text-align:left; }
+  .site-title { font-size:20px; font-weight:500; color:var(--text); letter-spacing:-.3px; }
+  .site-subtitle { font-size:13px; color:var(--text2); margin-top:2px; }
+  .site-desc { font-size:12px; color:var(--text3); margin-top:3px; line-height:1.5; }
 
-  .nav {
-    display: flex; gap: 4px; padding: 4px;
-    background: var(--bg2);
-    border-radius: var(--radius-lg);
-    border: 0.5px solid var(--border);
-  }
-  .nav-btn {
-    flex: 1; padding: 9px 6px; font-size: 13px; font-weight: 500;
-    cursor: pointer; border: none; background: transparent; color: var(--text2);
-    border-radius: 8px; transition: background .15s, color .15s;
-    font-family: inherit;
-  }
-  .nav-btn.on {
-    background: var(--bg); color: var(--text);
-    border: 0.5px solid var(--border);
-  }
+  /* Nav */
+  .nav { display:flex; gap:4px; padding:4px; background:var(--bg2); border-radius:var(--radius-lg); border:0.5px solid var(--border); }
+  .nav-btn { flex:1; padding:8px 6px; font-size:13px; font-weight:500; cursor:pointer; border:none; background:transparent; color:var(--text2); border-radius:8px; transition:background .15s,color .15s; font-family:inherit; }
+  .nav-btn.on { background:var(--bg); color:var(--text); border:0.5px solid var(--border); }
 
-  .page { display: none; flex-direction: column; gap: 1rem; }
-  .page.on { display: flex; }
+  .page { display:none; flex-direction:column; gap:1rem; }
+  .page.on { display:flex; }
 
-  .card {
-    background: var(--bg); border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg); padding: 1rem 1.25rem;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .card-title { font-size: 13px; font-weight: 500; color: var(--text2); }
+  .card { background:var(--bg); border:0.5px solid var(--border); border-radius:var(--radius-lg); padding:1rem 1.25rem; display:flex; flex-direction:column; gap:10px; }
+  .card-title { font-size:13px; font-weight:500; color:var(--text2); }
 
-  .field-row { display: flex; align-items: center; gap: 10px; }
-  .field-row label { font-size: 13px; color: var(--text2); min-width: 130px; }
-  .field-row input[type=number] {
-    flex: 1; padding: 8px 10px;
-    border: 0.5px solid var(--border2);
-    border-radius: var(--radius-md);
-    background: var(--bg2); color: var(--text);
-    font-size: 14px; outline: none; font-family: inherit;
-  }
-  .field-row input[type=number]:focus { border-color: var(--purple); }
+  .field-row { display:flex; align-items:center; gap:10px; }
+  .field-row label { font-size:13px; color:var(--text2); min-width:130px; }
+  .field-row input[type=number], .field-row input[type=text] { flex:1; padding:8px 10px; border:0.5px solid var(--border2); border-radius:var(--radius-md); background:var(--bg2); color:var(--text); font-size:14px; outline:none; font-family:inherit; }
+  .field-row input:focus { border-color:var(--purple); }
+  .field-row textarea { flex:1; padding:8px 10px; border:0.5px solid var(--border2); border-radius:var(--radius-md); background:var(--bg2); color:var(--text); font-size:13px; outline:none; font-family:inherit; resize:vertical; min-height:60px; line-height:1.5; }
+  .field-row textarea:focus { border-color:var(--purple); }
+  .field-row-top { align-items:flex-start; }
+  .field-row-top label { padding-top:9px; }
 
-  .slider-row { display: flex; align-items: center; gap: 10px; }
-  .slider-row label { font-size: 13px; color: var(--text2); min-width: 130px; }
-  .slider-row input[type=range] { flex: 1; accent-color: var(--purple); }
-  .slider-val { font-size: 14px; font-weight: 500; color: var(--text); min-width: 52px; text-align: right; }
+  /* Зураг оруулах */
+  .img-section { display:flex; flex-direction:column; gap:8px; }
+  .img-type-row { display:flex; gap:6px; }
+  .img-type-btn { flex:1; padding:7px 8px; font-size:12px; font-weight:500; cursor:pointer; border:0.5px solid var(--border2); border-radius:var(--radius-md); background:transparent; color:var(--text2); font-family:inherit; transition:background .15s,color .15s,border-color .15s; }
+  .img-type-btn.on { background:var(--purple-bg); color:var(--purple-text); border-color:var(--purple); }
+  .upload-area { border:1.5px dashed var(--border2); border-radius:var(--radius-lg); padding:1.25rem 1rem; text-align:center; cursor:pointer; position:relative; transition:border-color .2s,background .2s; }
+  .upload-area:hover { border-color:var(--purple); background:var(--purple-bg); }
+  .upload-area input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .upload-hint { font-size:13px; color:var(--text2); pointer-events:none; }
+  .upload-hint b { color:var(--purple); }
+  .preview-wrap { position:relative; }
+  .preview-wrap img { width:100%; max-height:160px; object-fit:cover; border-radius:var(--radius-md); display:block; }
+  .preview-wrap.thumb-mode img { width:80px; height:80px; border-radius:50%; object-fit:cover; }
+  .remove-btn { position:absolute; top:6px; right:6px; background:rgba(0,0,0,0.55); color:#fff; border:none; border-radius:999px; font-size:11px; padding:3px 9px; cursor:pointer; font-family:inherit; }
+  .remove-btn:hover { background:rgba(160,20,20,0.85); }
 
-  .prize-scroll {
-    display: flex; flex-direction: column; gap: 5px;
-    max-height: 320px; overflow-y: auto; padding-right: 2px;
-  }
-  .pe {
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 10px; background: var(--bg2);
-    border-radius: var(--radius-md); border: 0.5px solid var(--border);
-  }
-  .pe-n { font-size: 11px; font-weight: 500; color: var(--text3); min-width: 20px; text-align: right; }
-  .pe-name, .pe-val {
-    border: none; background: transparent; color: var(--text);
-    outline: none; font-size: 13px; font-family: inherit;
-  }
-  .pe-name { flex: 2; }
-  .pe-name:focus { border-bottom: 1px solid var(--purple); }
-  .pe-val { flex: 1; text-align: right; max-width: 90px; color: var(--text2); }
-  .pe-val:focus { border-bottom: 1px solid var(--purple); }
-  .del-btn {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 0.5px solid var(--border2); background: transparent;
-    cursor: pointer; color: var(--text3); font-size: 15px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; line-height: 1; font-family: inherit;
-  }
-  .del-btn:hover { background: #FCEBEB; color: #A32D2D; border-color: #F09595; }
+  .slider-row { display:flex; align-items:center; gap:10px; }
+  .slider-row label { font-size:13px; color:var(--text2); min-width:130px; }
+  .slider-row input[type=range] { flex:1; accent-color:var(--purple); }
+  .slider-val { font-size:14px; font-weight:500; color:var(--text); min-width:52px; text-align:right; }
 
-  .add-prize-btn {
-    align-self: flex-start; font-size: 13px; cursor: pointer;
-    padding: 7px 14px; border: 0.5px solid var(--border2);
-    border-radius: var(--radius-md); background: transparent;
-    color: var(--text); font-family: inherit;
-  }
-  .add-prize-btn:hover { background: var(--bg2); }
+  .prize-scroll { display:flex; flex-direction:column; gap:5px; max-height:300px; overflow-y:auto; padding-right:2px; }
+  .pe { display:flex; align-items:center; gap:6px; padding:8px 10px; background:var(--bg2); border-radius:var(--radius-md); border:0.5px solid var(--border); }
+  .pe-n { font-size:11px; font-weight:500; color:var(--text3); min-width:20px; text-align:right; }
+  .pe-name,.pe-val { border:none; background:transparent; color:var(--text); outline:none; font-size:13px; font-family:inherit; }
+  .pe-name { flex:2; }
+  .pe-name:focus { border-bottom:1px solid var(--purple); }
+  .pe-val { flex:1; text-align:right; max-width:90px; color:var(--text2); }
+  .pe-val:focus { border-bottom:1px solid var(--purple); }
+  .del-btn { width:22px; height:22px; border-radius:50%; border:0.5px solid var(--border2); background:transparent; cursor:pointer; color:var(--text3); font-size:15px; display:flex; align-items:center; justify-content:center; flex-shrink:0; line-height:1; font-family:inherit; }
+  .del-btn:hover { background:#FCEBEB; color:#A32D2D; border-color:#F09595; }
+  .add-prize-btn { align-self:flex-start; font-size:13px; cursor:pointer; padding:7px 14px; border:0.5px solid var(--border2); border-radius:var(--radius-md); background:transparent; color:var(--text); font-family:inherit; }
+  .add-prize-btn:hover { background:var(--bg2); }
+  .start-btn { padding:13px; font-size:15px; font-weight:500; cursor:pointer; width:100%; border:none; border-radius:var(--radius-lg); background:var(--purple); color:#fff; font-family:inherit; }
+  .start-btn:hover { opacity:.9; }
 
-  .start-btn {
-    padding: 13px; font-size: 15px; font-weight: 500; cursor: pointer;
-    width: 100%; border: none; border-radius: var(--radius-lg);
-    background: var(--purple); color: #fff; font-family: inherit;
-  }
-  .start-btn:hover { opacity: .9; }
+  .plist { display:flex; flex-direction:column; gap:4px; max-height:200px; overflow-y:auto; }
+  .pl-row { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:var(--radius-md); border:0.5px solid var(--border); background:var(--bg2); transition:border-color .2s,background .2s; }
+  .pl-row.cur { border-color:var(--purple); background:var(--purple-bg); }
+  .pl-row.done { opacity:0.45; }
+  .pl-num { font-size:11px; color:var(--text3); min-width:18px; text-align:right; }
+  .pl-name { flex:1; font-size:13px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pl-val { font-size:12px; color:var(--text2); }
+  .pl-st { font-size:11px; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+  .st-w { background:var(--bg2); color:var(--text3); border:0.5px solid var(--border); }
+  .st-d { background:var(--green-bg); color:var(--green-text); }
 
-  .plist { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
-  .pl-row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 7px 10px; border-radius: var(--radius-md);
-    border: 0.5px solid var(--border); background: var(--bg2);
-    transition: border-color .2s, background .2s;
-  }
-  .pl-row.cur { border-color: var(--purple); background: var(--purple-bg); }
-  .pl-row.done { opacity: 0.45; }
-  .pl-num { font-size: 11px; color: var(--text3); min-width: 18px; text-align: right; }
-  .pl-name { flex: 1; font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .pl-val { font-size: 12px; color: var(--text2); }
-  .pl-st { font-size: 11px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
-  .st-w { background: var(--bg2); color: var(--text3); border: 0.5px solid var(--border); }
-  .st-d { background: var(--green-bg); color: var(--green-text); }
+  .prize-indicator { width:100%; background:var(--bg2); border-radius:var(--radius-lg); border:0.5px solid var(--border); padding:1rem 1.25rem; display:flex; align-items:center; gap:12px; }
+  .pi-badge { font-size:11px; font-weight:500; padding:3px 10px; border-radius:999px; background:var(--purple-bg); color:var(--purple-text); white-space:nowrap; flex-shrink:0; }
+  .pi-info { display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .pi-name { font-size:14px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pi-val { font-size:12px; color:var(--text2); }
+  .pi-prog { margin-left:auto; font-size:12px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
 
-  .prize-indicator {
-    width: 100%; background: var(--bg2);
-    border-radius: var(--radius-lg); border: 0.5px solid var(--border);
-    padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px;
-  }
-  .pi-badge {
-    font-size: 11px; font-weight: 500; padding: 3px 10px;
-    border-radius: 999px; background: var(--purple-bg);
-    color: var(--purple-text); white-space: nowrap; flex-shrink: 0;
-  }
-  .pi-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .pi-name { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .pi-val { font-size: 12px; color: var(--text2); }
-  .pi-prog { margin-left: auto; font-size: 12px; color: var(--text3); white-space: nowrap; flex-shrink: 0; }
+  .draw-main { display:flex; flex-direction:column; align-items:center; gap:1rem; }
+  .counter-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; padding:1.25rem 0 .5rem; }
+  .counter { font-size:80px; font-weight:500; font-variant-numeric:tabular-nums; letter-spacing:-4px; color:var(--text); line-height:1; text-align:center; min-width:260px; min-height:88px; }
+  .counter.roll { color:var(--purple); }
+  .counter.win { color:var(--green); }
+  .counter-hint { font-size:12px; color:var(--text3); }
+  .timer-bar-wrap { width:240px; height:4px; background:var(--bg2); border-radius:999px; overflow:hidden; }
+  .timer-bar { height:4px; width:100%; background:var(--purple); border-radius:999px; }
 
-  .draw-main { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .draw-btn { padding:13px 48px; font-size:16px; font-weight:500; cursor:pointer; min-width:200px; border:none; border-radius:var(--radius-lg); background:var(--purple); color:#fff; font-family:inherit; }
+  .draw-btn:hover { opacity:.9; }
+  .draw-btn:disabled { opacity:0.4; cursor:not-allowed; }
 
-  .counter-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 1.25rem 0 .5rem; }
-  .counter {
-    font-size: 80px; font-weight: 500; font-variant-numeric: tabular-nums;
-    letter-spacing: -4px; color: var(--text); line-height: 1;
-    text-align: center; min-width: 260px; min-height: 88px;
-  }
-  .counter.roll { color: var(--purple); }
-  .counter.win { color: var(--green); }
-  .counter-hint { font-size: 12px; color: var(--text3); }
+  .winner-reveal { width:100%; border-radius:var(--radius-lg); overflow:hidden; }
+  .wr-top { background:var(--green); padding:1.25rem 1.5rem; text-align:center; }
+  .wr-num { font-size:48px; font-weight:500; color:#fff; line-height:1; }
+  .wr-label { font-size:13px; color:var(--green-mid); margin-top:2px; }
+  .wr-bottom { background:var(--green-bg); padding:.75rem 1.5rem; text-align:center; }
+  .wr-prize { font-size:14px; font-weight:500; color:var(--green-dark); }
+  .wr-val { font-size:13px; color:var(--green-text); margin-top:2px; }
 
-  .timer-bar-wrap {
-    width: 240px; height: 4px; background: var(--bg2);
-    border-radius: 999px; overflow: hidden;
-  }
-  .timer-bar {
-    height: 4px; width: 100%; background: var(--purple);
-    border-radius: 999px; transform-origin: left;
-  }
+  .next-btn { padding:11px 40px; font-size:14px; font-weight:500; cursor:pointer; min-width:180px; border:0.5px solid var(--border2); border-radius:var(--radius-lg); background:transparent; color:var(--text); font-family:inherit; }
+  .next-btn:hover { background:var(--bg2); }
 
-  .draw-btn {
-    padding: 13px 48px; font-size: 16px; font-weight: 500;
-    cursor: pointer; min-width: 200px;
-    border: none; border-radius: var(--radius-lg);
-    background: var(--purple); color: #fff; font-family: inherit;
-  }
-  .draw-btn:hover { opacity: .9; }
-  .draw-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .stat { background:var(--bg2); border-radius:var(--radius-md); padding:.75rem 1rem; text-align:center; }
+  .stat-val { font-size:24px; font-weight:500; color:var(--text); }
+  .stat-lbl { font-size:11px; color:var(--text3); margin-top:2px; }
 
-  .winner-reveal { width: 100%; border-radius: var(--radius-lg); overflow: hidden; }
-  .wr-top { background: var(--green); padding: 1.25rem 1.5rem; text-align: center; }
-  .wr-num { font-size: 48px; font-weight: 500; color: #fff; line-height: 1; }
-  .wr-label { font-size: 13px; color: var(--green-mid); margin-top: 2px; }
-  .wr-bottom { background: var(--green-bg); padding: .75rem 1.5rem; text-align: center; }
-  .wr-prize { font-size: 14px; font-weight: 500; color: var(--green-dark); }
-  .wr-val { font-size: 13px; color: var(--green-text); margin-top: 2px; }
-
-  .next-btn {
-    padding: 11px 40px; font-size: 14px; font-weight: 500;
-    cursor: pointer; min-width: 180px;
-    border: 0.5px solid var(--border2); border-radius: var(--radius-lg);
-    background: transparent; color: var(--text); font-family: inherit;
-  }
-  .next-btn:hover { background: var(--bg2); }
-
-  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stat { background: var(--bg2); border-radius: var(--radius-md); padding: .75rem 1rem; text-align: center; }
-  .stat-val { font-size: 24px; font-weight: 500; color: var(--text); }
-  .stat-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
-
-  .log-list { display: flex; flex-direction: column; gap: 5px; }
-  .log-row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 12px; background: var(--bg2); border-radius: var(--radius-md);
-  }
-  .log-badge { font-size: 11px; background: var(--green-bg); color: var(--green-text); padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
-  .log-name { flex: 1; font-size: 12px; color: var(--text2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .log-num { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; }
-
-  .link-btn {
-    font-size: 12px; color: var(--text3); background: none; border: none;
-    text-decoration: underline; cursor: pointer; align-self: flex-end; font-family: inherit;
-  }
+  .log-list { display:flex; flex-direction:column; gap:5px; }
+  .log-row { display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--bg2); border-radius:var(--radius-md); }
+  .log-badge { font-size:11px; background:var(--green-bg); color:var(--green-text); padding:2px 8px; border-radius:999px; font-weight:500; white-space:nowrap; }
+  .log-name { flex:1; font-size:12px; color:var(--text2); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .log-num { font-size:14px; font-weight:500; color:var(--text); white-space:nowrap; }
+  .link-btn { font-size:12px; color:var(--text3); background:none; border:none; text-decoration:underline; cursor:pointer; align-self:flex-end; font-family:inherit; }
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="site-header">
-    <h1>Хандивын сугалаа</h1>
-    <p>Азтан шалгаруулах систем</p>
+
+  <!-- HEADER: зураг + гарчиг компакт -->
+  <div class="site-header" id="site-header">
+    <div class="header-banner" id="header-banner">
+      <img id="banner-img" src="" alt="">
+    </div>
+    <div class="header-text" id="header-text">
+      <div class="header-thumb" id="header-thumb">
+        <img id="thumb-img" src="" alt="">
+      </div>
+      <div class="header-titles" id="header-titles">
+        <div class="site-title" id="display-title">Хандивын сугалаа</div>
+        <div class="site-subtitle" id="display-subtitle" style="display:none;"></div>
+        <div class="site-desc" id="display-desc" style="display:none;"></div>
+      </div>
+    </div>
   </div>
 
   <div class="nav">
@@ -264,7 +182,48 @@
     <button class="nav-btn" id="nb-results" onclick="nav('results')">Үр дүн</button>
   </div>
 
+  <!-- SETUP -->
   <div class="page on" id="pg-setup">
+
+    <div class="card">
+      <div class="card-title">Гарчгийн тохиргоо</div>
+      <div class="field-row">
+        <label>Гарчиг</label>
+        <input type="text" id="cfg-title" value="Хандивын сугалаа" oninput="updateHeader()">
+      </div>
+      <div class="field-row">
+        <label>Дэд гарчиг</label>
+        <input type="text" id="cfg-subtitle" placeholder="(заавал биш)" oninput="updateHeader()">
+      </div>
+      <div class="field-row field-row-top">
+        <label>Тайлбар</label>
+        <textarea id="cfg-desc" placeholder="(заавал биш)" oninput="updateHeader()"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Зурагны тохиргоо</div>
+      <div class="img-section">
+        <div class="img-type-row">
+          <button class="img-type-btn on" id="ibt-none" onclick="setImgType('none')">Зураггүй</button>
+          <button class="img-type-btn" id="ibt-banner" onclick="setImgType('banner')">Баннер зураг</button>
+          <button class="img-type-btn" id="ibt-thumb" onclick="setImgType('thumb')">Дугуй зураг</button>
+        </div>
+        <div id="img-upload-wrap" style="display:none;">
+          <div id="upload-area-wrap">
+            <div class="upload-area">
+              <input type="file" accept="image/*" onchange="handleImg(event)">
+              <div class="upload-hint">Зураг чирж тавих эсвэл <b>сонгох</b></div>
+            </div>
+          </div>
+          <div id="img-preview-wrap" style="display:none;" class="preview-wrap">
+            <img id="img-preview" src="" alt="">
+            <button class="remove-btn" onclick="removeImg()">Устгах</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-title">Оролцогчийн тохиргоо</div>
       <div class="field-row">
@@ -288,7 +247,7 @@
         <div class="card-title">Шагналын жагсаалт</div>
         <span id="prize-lbl" style="font-size:12px;color:var(--text3);">20 шагнал</span>
       </div>
-      <div style="display:flex;padding:0 10px;gap:0;">
+      <div style="display:flex;padding:0 10px;">
         <span style="flex:2;font-size:11px;color:var(--text3);">Нэр</span>
         <span style="flex:1;font-size:11px;color:var(--text3);text-align:right;max-width:90px;">Үнэ цэн</span>
         <span style="width:28px;"></span>
@@ -300,6 +259,7 @@
     <button class="start-btn" onclick="startDraw()">Сугалаа эхлүүлэх →</button>
   </div>
 
+  <!-- DRAW -->
   <div class="page" id="pg-draw">
     <div class="card" style="padding:.75rem 1rem;">
       <div class="card-title" style="margin-bottom:4px;">Шагналын жагсаалт</div>
@@ -330,6 +290,7 @@
     <button class="link-btn" onclick="resetAll()">Дахиулах</button>
   </div>
 
+  <!-- RESULTS -->
   <div class="page" id="pg-results">
     <div class="stat-grid">
       <div class="stat"><div class="stat-val" id="s-done">0</div><div class="stat-lbl">Тараагдсан</div></div>
@@ -344,8 +305,8 @@
     </div>
     <button class="link-btn" onclick="resetAll()">Бүгдийг дахиулах</button>
   </div>
-</div>
 
+</div>
 <script>
 const DEFAULT=[
   {name:"МУАУ Бүтийн Батсайханы унаган 37,5% үрээ",value:"8 сая"},
@@ -374,6 +335,87 @@ let prizes=DEFAULT.map((p,i)=>({...p,id:i+1}));
 let winners={};
 let curIdx=0;
 let rolling=false;
+let imgType='none';
+let imgDataUrl='';
+
+function setImgType(t){
+  imgType=t;
+  ['none','banner','thumb'].forEach(k=>{
+    document.getElementById('ibt-'+k).classList.toggle('on',k===t);
+  });
+  document.getElementById('img-upload-wrap').style.display=t==='none'?'none':'block';
+  if(t==='none'){
+    removeImg();
+  } else {
+    const pw=document.getElementById('img-preview-wrap');
+    pw.classList.toggle('thumb-mode',t==='thumb');
+    if(imgDataUrl) showPreview();
+  }
+  applyHeaderImg();
+}
+
+function handleImg(e){
+  const f=e.target.files[0];
+  if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    imgDataUrl=ev.target.result;
+    showPreview();
+    applyHeaderImg();
+  };
+  r.readAsDataURL(f);
+}
+
+function showPreview(){
+  const aw=document.getElementById('upload-area-wrap');
+  const pw=document.getElementById('img-preview-wrap');
+  document.getElementById('img-preview').src=imgDataUrl;
+  pw.classList.toggle('thumb-mode',imgType==='thumb');
+  aw.style.display='none';
+  pw.style.display='block';
+}
+
+function removeImg(){
+  imgDataUrl='';
+  document.getElementById('img-preview').src='';
+  document.getElementById('upload-area-wrap').style.display='block';
+  document.getElementById('img-preview-wrap').style.display='none';
+  applyHeaderImg();
+}
+
+function applyHeaderImg(){
+  const banner=document.getElementById('header-banner');
+  const thumb=document.getElementById('header-thumb');
+  const titles=document.getElementById('header-titles');
+  banner.style.display='none';
+  thumb.style.display='none';
+  titles.classList.remove('has-thumb');
+
+  if(!imgDataUrl || imgType==='none') return;
+
+  if(imgType==='banner'){
+    document.getElementById('banner-img').src=imgDataUrl;
+    banner.style.display='block';
+  } else if(imgType==='thumb'){
+    document.getElementById('thumb-img').src=imgDataUrl;
+    thumb.style.display='block';
+    titles.classList.add('has-thumb');
+  }
+}
+
+function updateHeader(){
+  const title=document.getElementById('cfg-title').value||'Хандивын сугалаа';
+  const subtitle=document.getElementById('cfg-subtitle').value.trim();
+  const desc=document.getElementById('cfg-desc').value.trim();
+  document.getElementById('display-title').textContent=title;
+  document.title=title;
+  const stEl=document.getElementById('display-subtitle');
+  if(subtitle){stEl.textContent=subtitle;stEl.style.display='block';}
+  else stEl.style.display='none';
+  const dEl=document.getElementById('display-desc');
+  if(desc){dEl.textContent=desc;dEl.style.display='block';}
+  else dEl.style.display='none';
+}
 
 function nav(t){
   ['setup','draw','results'].forEach(k=>{
@@ -408,9 +450,7 @@ function delPrize(i){
   renderEditor();
 }
 
-function getDur(){
-  return (parseInt(document.getElementById('cfg-dur').value)||10)*1000;
-}
+function getDur(){return(parseInt(document.getElementById('cfg-dur').value)||10)*1000;}
 
 function startDraw(){
   prizes=prizes.filter(p=>p.name.trim());
@@ -430,9 +470,7 @@ function getRange(){
   const start=parseInt(document.getElementById('cfg-start').value)||1;
   return{start,end:start+total-1};
 }
-
 function getUsed(){return new Set(Object.values(winners));}
-
 function pickRandom(){
   const{start,end}=getRange();
   const used=getUsed();
@@ -455,7 +493,6 @@ function renderDrawPage(){
       <span class="pl-st ${done?'st-d':'st-w'}">${done?'№'+won:'...'}</span>
     </div>`;
   }).join('');
-
   if(curIdx<prizes.length){
     const p=prizes[curIdx];
     document.getElementById('pi-badge').textContent=p.id+'-р шагнал';
@@ -478,32 +515,26 @@ function doDraw(){
   if(rolling||curIdx>=prizes.length)return;
   const final=pickRandom();
   if(!final){alert('Оролцогч хүрэлцэхгүй байна!');return;}
-
   rolling=true;
   document.getElementById('draw-btn').disabled=true;
   document.getElementById('winner-wrap').innerHTML='';
   document.getElementById('next-btn').style.display='none';
-
   const counter=document.getElementById('counter');
   const hint=document.getElementById('counter-hint');
   const barWrap=document.getElementById('timer-bar-wrap');
   const bar=document.getElementById('timer-bar');
-
   counter.className='counter roll';
   hint.textContent='Эргэж байна...';
   barWrap.style.display='block';
   bar.style.transition='none';
   bar.style.width='100%';
-
   const dur=getDur();
   const{start,end}=getRange();
   let elapsed=0,last=null;
-
   setTimeout(()=>{
     bar.style.transition='width '+dur+'ms linear';
     bar.style.width='0%';
   },30);
-
   function tick(ts){
     if(!last)last=ts;
     elapsed+=ts-last;last=ts;
@@ -511,8 +542,7 @@ function doDraw(){
     const eased=1-Math.pow(1-prog,3);
     counter.textContent=Math.round(start+Math.random()*(end-start));
     if(elapsed<dur){
-      const delay=eased>.85?120:eased>.65?60:eased>.4?30:16;
-      setTimeout(()=>requestAnimationFrame(tick),delay);
+      setTimeout(()=>requestAnimationFrame(tick),eased>.85?120:eased>.65?60:eased>.4?30:16);
     } else {
       counter.textContent=final;
       counter.className='counter win';
@@ -523,14 +553,8 @@ function doDraw(){
       rolling=false;
       document.getElementById('winner-wrap').innerHTML=`
         <div class="winner-reveal">
-          <div class="wr-top">
-            <div class="wr-num">№ ${final}</div>
-            <div class="wr-label">Азтан</div>
-          </div>
-          <div class="wr-bottom">
-            <div class="wr-prize">${p.name}</div>
-            <div class="wr-val">${p.value}</div>
-          </div>
+          <div class="wr-top"><div class="wr-num">№ ${final}</div><div class="wr-label">Азтан</div></div>
+          <div class="wr-bottom"><div class="wr-prize">${p.name}</div><div class="wr-val">${p.value}</div></div>
         </div>`;
       curIdx++;
       renderDrawPage();
