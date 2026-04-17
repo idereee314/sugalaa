@@ -13,6 +13,7 @@
   --r:8px;--rl:12px;
   --pu:#534AB7;--pub:#EEEDFE;--put:#3C3489;
   --gr:#1D9E75;--grb:#E1F5EE;--grt:#0F6E56;--grd:#085041;--grm:#9FE1CB;
+  --rd:#D64545;--rdb:#FDECEC;--rdt:#A32D2D;
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2b;
@@ -20,6 +21,7 @@
   --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.18);
   --pu:#7F77DD;--pub:#26215C;--put:#AFA9EC;
   --gr:#1D9E75;--grb:#04342C;--grt:#5DCAA5;--grd:#9FE1CB;--grm:#085041;
+  --rd:#E26B6B;--rdb:#3B1F1F;--rdt:#FFB5B5;
 }}
 
 body{
@@ -30,7 +32,6 @@ body{
   padding:1rem 1rem 3rem;
 }
 
-/* desktop shell */
 .layout-shell{
   max-width:1600px;
   margin:0 auto;
@@ -85,7 +86,6 @@ body{
   }
 }
 
-/* ── HEADER ── */
 .site-header{display:flex;flex-direction:column;gap:0;}
 .header-banner{width:100%;border-radius:var(--rl);overflow:hidden;display:none;}
 .header-banner img{width:100%;height:280px;object-fit:contain;display:block;background:var(--bg2);}
@@ -98,7 +98,6 @@ body{
 .site-subtitle{font-size:13px;color:var(--text2);margin-top:2px;}
 .site-desc{font-size:13px;color:var(--text3);margin-top:4px;line-height:1.6;white-space:pre-wrap;}
 
-/* ── SIDE IMAGES (draw/results доторх) ── */
 .side-display{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2px;}
 .side-display.visible{display:grid;}
 .side-display img{width:100%;height:150px;object-fit:cover;border-radius:var(--rl);display:block;}
@@ -109,7 +108,6 @@ body{
   }
 }
 
-/* ── NAV ── */
 .nav{display:flex;gap:4px;padding:4px;background:var(--bg2);border-radius:var(--rl);border:0.5px solid var(--border);}
 .nav-btn{flex:1;padding:8px 6px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text2);border-radius:8px;transition:background .15s,color .15s;font-family:inherit;}
 .nav-btn.on{background:var(--bg);color:var(--text);border:0.5px solid var(--border);}
@@ -136,14 +134,20 @@ body{
 
 .field-row{display:flex;align-items:center;gap:10px;}
 .field-row label{font-size:13px;color:var(--text2);min-width:130px;}
-.field-row input[type=number],.field-row input[type=text]{flex:1;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--r);background:var(--bg2);color:var(--text);font-size:14px;outline:none;font-family:inherit;}
+.field-row input[type=number],.field-row input[type=text]{
+  flex:1;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--r);
+  background:var(--bg2);color:var(--text);font-size:14px;outline:none;font-family:inherit;
+}
 .field-row input:focus{border-color:var(--pu);}
-.field-row textarea{flex:1;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--r);background:var(--bg2);color:var(--text);font-size:13px;outline:none;font-family:inherit;resize:vertical;min-height:72px;line-height:1.5;}
+.field-row textarea{
+  flex:1;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--r);
+  background:var(--bg2);color:var(--text);font-size:13px;outline:none;font-family:inherit;
+  resize:vertical;min-height:72px;line-height:1.5;
+}
 .field-row textarea:focus{border-color:var(--pu);}
 .frt{align-items:flex-start;}
 .frt label{padding-top:9px;}
 
-/* font controls */
 .font-ctrl-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .font-ctrl-row label{font-size:13px;color:var(--text2);min-width:130px;}
 .font-size-btns{display:flex;gap:4px;}
@@ -163,6 +167,9 @@ body{
 .itype-row{display:flex;gap:6px;}
 .itype-btn{flex:1;padding:7px 8px;font-size:12px;font-weight:500;cursor:pointer;border:0.5px solid var(--border2);border-radius:var(--r);background:transparent;color:var(--text2);font-family:inherit;}
 .itype-btn.on{background:var(--pub);color:var(--put);border-color:var(--pu);}
+.itype-btn:disabled,.fsz-btn:disabled,.bold-btn:disabled,.italic-btn:disabled,.align-btn:disabled,.add-btn:disabled,.del-btn:disabled,.nav-btn:disabled{
+  opacity:.55;cursor:not-allowed;
+}
 .upload-area{border:1.5px dashed var(--border2);border-radius:var(--rl);padding:1.25rem 1rem;text-align:center;cursor:pointer;position:relative;transition:border-color .2s,background .2s;}
 .upload-area:hover{border-color:var(--pu);background:var(--pub);}
 .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
@@ -172,8 +179,8 @@ body{
 .prev-wrap img{width:100%;max-height:160px;object-fit:contain;border-radius:var(--r);display:block;background:var(--bg2);}
 .prev-wrap.tmode img{width:80px;height:80px;border-radius:50%;object-fit:cover;}
 .rm-btn{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:999px;font-size:11px;padding:3px 9px;cursor:pointer;font-family:inherit;}
+.rm-btn:disabled{opacity:.55;cursor:not-allowed;}
 
-/* side image slots */
 .side-imgs-setup{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .side-img-slot{display:flex;flex-direction:column;gap:6px;}
 .slot-label{font-size:12px;color:var(--text2);font-weight:500;}
@@ -190,7 +197,6 @@ body{
 .slider-row input[type=range]{flex:1;accent-color:var(--pu);}
 .slider-val{font-size:14px;font-weight:500;color:var(--text);min-width:52px;text-align:right;}
 
-/* prize editor */
 .prize-scroll{
   display:flex;
   flex-direction:column;
@@ -204,16 +210,9 @@ body{
   overscroll-behavior:contain;
   touch-action:pan-y;
 }
-.prize-scroll::-webkit-scrollbar{
-  width:8px;
-}
-.prize-scroll::-webkit-scrollbar-thumb{
-  background:rgba(0,0,0,0.18);
-  border-radius:999px;
-}
-.prize-scroll::-webkit-scrollbar-track{
-  background:transparent;
-}
+.prize-scroll::-webkit-scrollbar{width:8px;}
+.prize-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.18);border-radius:999px;}
+.prize-scroll::-webkit-scrollbar-track{background:transparent;}
 
 .pe{
   display:flex;
@@ -243,8 +242,8 @@ body{
 .add-btn:hover{background:var(--bg2);}
 .start-btn{padding:13px;font-size:15px;font-weight:500;cursor:pointer;width:100%;border:none;border-radius:var(--rl);background:var(--pu);color:#fff;font-family:inherit;}
 .start-btn:hover{opacity:.9;}
+.start-btn:disabled{opacity:.55;cursor:not-allowed;}
 
-/* draw */
 .plist{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto;}
 .pl-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r);border:0.5px solid var(--border);background:var(--bg2);}
 .pl-row.cur{border-color:var(--pu);background:var(--pub);}
@@ -300,50 +299,40 @@ body{
 .log-num{font-size:14px;font-weight:500;color:var(--text);white-space:nowrap;}
 .link-btn{font-size:12px;color:var(--text3);background:none;border:none;text-decoration:underline;cursor:pointer;align-self:flex-end;font-family:inherit;}
 
-/* desc preview box */
 .desc-preview{background:var(--bg2);border-radius:var(--r);padding:10px 14px;margin-top:2px;border:0.5px solid var(--border);}
 
+.guard-note{
+  font-size:12px;color:var(--text2);background:var(--bg2);padding:.75rem 1rem;border-radius:var(--r);border:0.5px solid var(--border);
+}
+.guard-note b{color:var(--pu);}
+.lock-badge{
+  display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
+  color:var(--put);background:var(--pub);padding:6px 10px;border-radius:999px;border:0.5px solid var(--pu);
+}
+.alert-box{
+  display:none;
+  background:var(--rdb);
+  color:var(--rdt);
+  border:1px solid var(--rd);
+  border-radius:var(--r);
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.5;
+}
+.alert-box.on{display:block;}
+
 @media (max-width:768px){
-  body{
-    padding:0.75rem 0.75rem 2rem;
-  }
+  body{padding:0.75rem 0.75rem 2rem;}
   .layout-shell,
-  .layout-shell.no-side{
-    max-width:100%;
-  }
-  .field-row,
-  .slider-row,
-  .font-ctrl-row{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .field-row label,
-  .slider-row label,
-  .font-ctrl-row label{
-    min-width:unset;
-  }
-  .side-imgs-setup{
-    grid-template-columns:1fr;
-  }
-  .stat-grid{
-    grid-template-columns:1fr;
-  }
-  .counter{
-    font-size:56px;
-    min-width:100%;
-    letter-spacing:-2px;
-  }
-  .draw-btn,
-  .next-btn{
-    width:100%;
-  }
-  .pi{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .pi-prog{
-    margin-left:0;
-  }
+  .layout-shell.no-side{max-width:100%;}
+  .field-row,.slider-row,.font-ctrl-row{flex-direction:column;align-items:stretch;}
+  .field-row label,.slider-row label,.font-ctrl-row label{min-width:unset;}
+  .side-imgs-setup{grid-template-columns:1fr;}
+  .stat-grid{grid-template-columns:1fr;}
+  .counter{font-size:56px;min-width:100%;letter-spacing:-2px;}
+  .draw-btn,.next-btn{width:100%;}
+  .pi{flex-direction:column;align-items:flex-start;}
+  .pi-prog{margin-left:0;}
 }
 </style>
 </head>
@@ -355,7 +344,6 @@ body{
   </div>
 
   <div class="app">
-
     <div class="site-header">
       <div class="header-banner" id="header-banner"><img id="banner-img" src="" alt=""></div>
       <div class="header-text">
@@ -374,7 +362,17 @@ body{
       <button class="nav-btn" id="nb-results" onclick="nav('results')">Үр дүн</button>
     </div>
 
+    <div id="tamper-alert" class="alert-box"></div>
+
     <div class="page on" id="pg-setup">
+      <div class="guard-note">
+        Энэ хувилбар нь <b>secure random</b> ашиглана. Сугалаа эхэлмэгц тохиргоо түгжигдэнэ.
+        Хэрэв эхэлсний дараа оролцогчийн хүрээ эсвэл шагналын бүтэц өөрчлөгдвөл анхааруулга өгнө.
+      </div>
+
+      <div id="lock-state" style="display:none;">
+        <span class="lock-badge">🔒 Сугалааны тохиргоо түгжигдсэн</span>
+      </div>
 
       <div class="card">
         <div class="card-title">Гарчгийн тохиргоо</div>
@@ -525,7 +523,7 @@ body{
         <button class="add-btn" onclick="addPrize()">+ Шагнал нэмэх</button>
       </div>
 
-      <button class="start-btn" onclick="startDraw()">Тохиргоо дууслаа. Сугалааг эхлүүлэх →</button>
+      <button class="start-btn" id="start-btn" onclick="startDraw()">Тохиргоо дууслаа. Сугалааг эхлүүлэх →</button>
     </div>
 
     <div class="page" id="pg-draw">
@@ -572,7 +570,6 @@ body{
       </div>
       <button class="link-btn" onclick="resetAll()">Бүгдийг дахиулах</button>
     </div>
-
   </div>
 
   <div class="layout-side layout-side-right" id="outer-side-right">
@@ -581,493 +578,813 @@ body{
 </div>
 
 <script>
-const DEFAULT=[
-  {name:"МУАУ Бүтийн Батсайханы унаган 37,5% үрээ",value:"8 сая"},
-  {name:"Английн 50%-ийн цустай соёолон азарга",value:"7 сая"},
-  {name:"Английн 50%-ийн цустай даага",value:"6 сая"},
-  {name:"Арабын 37.5%-ийн цустай гүү",value:"5 сая"},
-  {name:"Цэвэр Англи азарганд гүү тавих эрх",value:"5 сая"},
-  {name:"Удамтай Монгол гүү",value:"2 сая"},
-  {name:"25%-тай даага",value:"2 сая"},
-  {name:"Сийлбэртэй ширээ сандал",value:"1.5 сая"},
-  {name:"Сийлбэртэй эмээлийн тавиур",value:"800 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Сийлбэртэй авдар",value:"500 мянга"},
-  {name:"Чанартай дээлийн торго",value:"300 мянга"},
-  {name:"Чанартай дээлийн торго",value:"300 мянга"},
-  {name:"Чанартай дээлийн торго",value:"300 мянга"},
-  {name:"Чанартай дээлийн торго",value:"300 мянга"},
-];
+(() => {
+  'use strict';
 
-let prizes=DEFAULT.map((p,i)=>({...p,id:i+1,img:''}));
-let winners={};
-let curIdx=0;
-let rolling=false;
-let hdrType='none';
-let hdrImg='';
-let sideImgs=['',''];
-let drawOrder='asc';
+  const DEFAULT = [
+    {name:"МУАУ Бүтийн Батсайханы унаган 37,5% үрээ",value:"8 сая"},
+    {name:"Английн 50%-ийн цустай соёолон азарга",value:"7 сая"},
+    {name:"Английн 50%-ийн цустай даага",value:"6 сая"},
+    {name:"Арабын 37.5%-ийн цустай гүү",value:"5 сая"},
+    {name:"Цэвэр Англи азарганд гүү тавих эрх",value:"5 сая"},
+    {name:"Удамтай Монгол гүү",value:"2 сая"},
+    {name:"25%-тай даага",value:"2 сая"},
+    {name:"Сийлбэртэй ширээ сандал",value:"1.5 сая"},
+    {name:"Сийлбэртэй эмээлийн тавиур",value:"800 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Сийлбэртэй авдар",value:"500 мянга"},
+    {name:"Чанартай дээлийн торго",value:"300 мянга"},
+    {name:"Чанартай дээлийн торго",value:"300 мянга"},
+    {name:"Чанартай дээлийн торго",value:"300 мянга"},
+    {name:"Чанартай дээлийн торго",value:"300 мянга"},
+  ];
 
-let descStyle={size:'md',color:'#a0a09a',bold:false,italic:false,align:'left'};
-const fontSizeMap={xs:'11px',sm:'12px',md:'13px',lg:'16px',xl:'20px'};
+  let prizes = DEFAULT.map((p,i)=>({...p,id:i+1,img:''}));
+  let winners = {};
+  let curIdx = 0;
+  let rolling = false;
+  let hdrType = 'none';
+  let hdrImg = '';
+  let sideImgs = ['',''];
+  let drawOrder = 'asc';
 
-function getRange(){
-  const total = Math.max(1, parseInt(document.getElementById('cfg-total').value) || 1000);
-  const start = parseInt(document.getElementById('cfg-start').value) || 1;
-  return { start, end:start + total - 1 };
-}
-function getNumberPadLength(){
-  const { end } = getRange();
-  return String(Math.abs(end)).length;
-}
-function formatDrawNumber(num){
-  if(num === null || num === undefined || num === '' || num === '—') return '—';
-  return String(num).padStart(getNumberPadLength(), '0');
-}
-function refreshNumberViews(){
-  if(!rolling){
-    const finished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
-    if(Object.keys(winners).length===0 && !finished){
-      const { start } = getRange();
-      document.getElementById('counter').textContent = formatDrawNumber(start);
+  let descStyle = {size:'md',color:'#a0a09a',bold:false,italic:false,align:'left'};
+  const fontSizeMap = {xs:'11px',sm:'12px',md:'13px',lg:'16px',xl:'20px'};
+
+  let drawLocked = false;
+  let drawSnapshot = null;
+  let tamperDetected = false;
+
+  const ui = {
+    get total() { return document.getElementById('cfg-total'); },
+    get start() { return document.getElementById('cfg-start'); },
+    get dur() { return document.getElementById('cfg-dur'); },
+    get startBtn() { return document.getElementById('start-btn'); },
+    get tamperAlert() { return document.getElementById('tamper-alert'); },
+    get lockState() { return document.getElementById('lock-state'); }
+  };
+
+  function esc(s=''){
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  function deepClone(obj){
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function getRange(){
+    const total = Math.max(1, parseInt(ui.total.value) || 1000);
+    const start = parseInt(ui.start.value) || 1;
+    return { start, end:start + total - 1, total };
+  }
+
+  function getActiveRange(){
+    if (drawLocked && drawSnapshot) {
+      return { start: drawSnapshot.start, end: drawSnapshot.end, total: drawSnapshot.total };
+    }
+    return getRange();
+  }
+
+  function getNumberPadLength(){
+    const { end } = getActiveRange();
+    return String(Math.abs(end)).length;
+  }
+
+  function formatDrawNumber(num){
+    if(num === null || num === undefined || num === '' || num === '—') return '—';
+    return String(num).padStart(getNumberPadLength(), '0');
+  }
+
+  function getDur(){
+    return (parseInt(ui.dur.value) || 10) * 1000;
+  }
+
+  function showTamper(msg){
+    tamperDetected = true;
+    ui.tamperAlert.textContent = msg;
+    ui.tamperAlert.classList.add('on');
+    document.getElementById('draw-btn').disabled = true;
+    document.getElementById('draw-btn').textContent = 'Түгжигдсэн';
+    document.getElementById('ctr-hint').textContent = 'Систем өөрчлөлт илрүүллээ';
+  }
+
+  function clearTamper(){
+    tamperDetected = false;
+    ui.tamperAlert.textContent = '';
+    ui.tamperAlert.classList.remove('on');
+  }
+
+  function snapshotConfig(){
+    const r = getRange();
+    const cleanPrizes = prizes
+      .filter(p => (p.name || '').trim())
+      .map((p, i) => ({
+        id: i + 1,
+        name: (p.name || '').trim(),
+        value: (p.value || '').trim(),
+        img: p.img || ''
+      }));
+
+    return {
+      start: r.start,
+      end: r.end,
+      total: r.total,
+      drawOrder,
+      prizes: cleanPrizes
+    };
+  }
+
+  function compareCurrentToSnapshot(){
+    if (!drawLocked || !drawSnapshot) return true;
+
+    const now = snapshotConfig();
+
+    if (now.start !== drawSnapshot.start || now.end !== drawSnapshot.end || now.total !== drawSnapshot.total) {
+      return false;
+    }
+    if (now.drawOrder !== drawSnapshot.drawOrder) {
+      return false;
+    }
+    if (now.prizes.length !== drawSnapshot.prizes.length) {
+      return false;
+    }
+
+    for (let i = 0; i < now.prizes.length; i++) {
+      const a = now.prizes[i];
+      const b = drawSnapshot.prizes[i];
+      if (!b) return false;
+      if (a.name !== b.name || a.value !== b.value || a.img !== b.img) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function checkTamper(){
+    if (!drawLocked || tamperDetected) return;
+    if (!compareCurrentToSnapshot()) {
+      showTamper('Сугалаа эхэлсний дараа тохиргоо өөрчлөгдсөн байна. Шударга байдлыг хамгаалахын тулд сугалааг түгжлээ. Дахин эхлүүлэх бол "Дахиулах" ашиглана уу.');
     }
   }
-  renderDrawPage();
-  renderResults();
-}
 
-function setDrawOrder(o){
-  drawOrder=o;
-  document.getElementById('ord-asc').classList.toggle('on',o==='asc');
-  document.getElementById('ord-desc').classList.toggle('on',o==='desc');
-  if(Object.keys(winners).length===0){
-    curIdx = drawOrder==='desc' ? prizes.length-1 : 0;
-  }
-  renderDrawPage();
-}
-
-function setFontSize(s){
-  descStyle.size=s;
-  ['xs','sm','md','lg','xl'].forEach(k=>document.getElementById('fsz-'+k).classList.toggle('on',k===s));
-  applyDescStyle();
-}
-function setDescColor(el){
-  descStyle.color=el.dataset.color;
-  document.querySelectorAll('.swatch').forEach(e=>e.classList.toggle('on',e===el));
-  applyDescStyle();
-}
-function toggleDescBold(){
-  descStyle.bold=!descStyle.bold;
-  document.getElementById('desc-bold').classList.toggle('on',descStyle.bold);
-  applyDescStyle();
-}
-function toggleDescItalic(){
-  descStyle.italic=!descStyle.italic;
-  document.getElementById('desc-italic').classList.toggle('on',descStyle.italic);
-  applyDescStyle();
-}
-function setDescAlign(a){
-  descStyle.align=a;
-  ['left','center','right'].forEach(k=>document.getElementById('al-'+k).classList.toggle('on',k===a));
-  applyDescStyle();
-}
-function applyDescStyle(){
-  const el=document.getElementById('display-desc');
-  el.style.fontSize=fontSizeMap[descStyle.size];
-  el.style.color=descStyle.color;
-  el.style.fontWeight=descStyle.bold?'600':'400';
-  el.style.fontStyle=descStyle.italic?'italic':'normal';
-  el.style.textAlign=descStyle.align;
-
-  const pv=document.getElementById('desc-preview');
-  const pt=document.getElementById('desc-preview-text');
-  const txt=document.getElementById('cfg-desc').value.trim();
-  if(txt){
-    pt.textContent=txt;
-    pt.style.fontSize=fontSizeMap[descStyle.size];
-    pt.style.color=descStyle.color;
-    pt.style.fontWeight=descStyle.bold?'600':'400';
-    pt.style.fontStyle=descStyle.italic?'italic':'normal';
-    pt.style.textAlign=descStyle.align;
-    pv.style.display='block';
-  } else {
-    pv.style.display='none';
-  }
-}
-
-function setImgType(t){
-  hdrType=t;
-  ['none','banner','thumb'].forEach(k=>document.getElementById('ibt-'+k).classList.toggle('on',k===t));
-  document.getElementById('hdr-upload-wrap').style.display=t==='none'?'none':'block';
-  if(t==='none')removeHdrImg();
-  applyHdrImg();
-}
-function handleHdrImg(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{hdrImg=ev.target.result;showHdrPrev();applyHdrImg();};
-  r.readAsDataURL(f);
-}
-function showHdrPrev(){
-  document.getElementById('hdr-area-wrap').style.display='none';
-  const pw=document.getElementById('hdr-prev-wrap');
-  document.getElementById('hdr-prev').src=hdrImg;
-  pw.classList.toggle('tmode',hdrType==='thumb');
-  pw.style.display='block';
-}
-function removeHdrImg(){
-  hdrImg='';
-  document.getElementById('hdr-prev').src='';
-  document.getElementById('hdr-area-wrap').style.display='block';
-  document.getElementById('hdr-prev-wrap').style.display='none';
-  applyHdrImg();
-}
-function applyHdrImg(){
-  const banner=document.getElementById('header-banner');
-  const thumb=document.getElementById('header-thumb');
-  const titles=document.getElementById('header-titles');
-  banner.style.display='none';thumb.style.display='none';
-  titles.classList.remove('has-thumb');
-  if(!hdrImg||hdrType==='none')return;
-  if(hdrType==='banner'){
-    document.getElementById('banner-img').src=hdrImg;
-    banner.style.display='block';
-  }else{
-    document.getElementById('thumb-img').src=hdrImg;
-    thumb.style.display='block';
-    titles.classList.add('has-thumb');
-  }
-}
-
-function handleSideImg(e,idx){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{sideImgs[idx]=ev.target.result;applySideImg(idx);};
-  r.readAsDataURL(f);
-}
-function removeSideImg(idx){
-  sideImgs[idx]='';
-  applySideImg(idx);
-}
-function applySideImg(idx){
-  const src=sideImgs[idx];
-  const prev=document.getElementById('side-prev-'+idx);
-  const upload=document.getElementById('side-upload-'+idx);
-  document.getElementById('side-img-'+idx).src=src||'';
-  prev.style.display=src?'block':'none';
-  upload.style.display=src?'none':'flex';
-  updateSideDisplays();
-}
-function updateSideDisplays(){
-  const any=sideImgs.some(s=>s);
-
-  const sd=document.getElementById('side-draw');
-  document.getElementById('sd0').src=sideImgs[0]||'';
-  document.getElementById('sd0').style.display=sideImgs[0]?'block':'none';
-  document.getElementById('sd1').src=sideImgs[1]||'';
-  document.getElementById('sd1').style.display=sideImgs[1]?'block':'none';
-  sd.classList.toggle('visible',any);
-
-  const sr=document.getElementById('side-results');
-  document.getElementById('sr0').src=sideImgs[0]||'';
-  document.getElementById('sr0').style.display=sideImgs[0]?'block':'none';
-  document.getElementById('sr1').src=sideImgs[1]||'';
-  document.getElementById('sr1').style.display=sideImgs[1]?'block':'none';
-  sr.classList.toggle('visible',any);
-
-  const outerLeft=document.getElementById('outer-side-left');
-  const outerRight=document.getElementById('outer-side-right');
-  const outerImgLeft=document.getElementById('outer-img-left');
-  const outerImgRight=document.getElementById('outer-img-right');
-
-  outerImgLeft.src=sideImgs[0]||'';
-  outerImgRight.src=sideImgs[1]||'';
-
-  outerLeft.classList.toggle('has-image',!!sideImgs[0]);
-  outerRight.classList.toggle('has-image',!!sideImgs[1]);
-
-  const shell = document.querySelector('.layout-shell');
-  shell.classList.toggle('no-side', !any);
-}
-
-function updateHeader(){
-  const t=document.getElementById('cfg-title').value||'Хандивын сугалаа';
-  const s=document.getElementById('cfg-subtitle').value.trim();
-  const d=document.getElementById('cfg-desc').value.trim();
-  document.getElementById('display-title').textContent=t;
-  document.title=t;
-  const se=document.getElementById('display-subtitle');
-  se.textContent=s;se.style.display=s?'block':'none';
-  const de=document.getElementById('display-desc');
-  de.textContent=d;de.style.display=d?'block':'none';
-  applyDescStyle();
-}
-
-function nav(t){
-  ['setup','draw','results'].forEach(k=>{
-    document.getElementById('pg-'+k).classList.toggle('on',k===t);
-    document.getElementById('nb-'+k).classList.toggle('on',k===t);
-  });
-  if(t==='draw')renderDrawPage();
-  if(t==='results')renderResults();
-}
-
-function renderEditor(){
-  const el=document.getElementById('pe-list');
-  const scrollTop=el.scrollTop;
-  el.innerHTML=prizes.map((p,i)=>`
-    <div class="pe">
-      <div class="pe-main">
-        <span class="pe-n">${i+1}</span>
-        <input class="pe-name" value="${p.name.replace(/"/g,'&quot;')}" placeholder="Шагналын нэр" oninput="prizes[${i}].name=this.value">
-        <input class="pe-val" value="${p.value.replace(/"/g,'&quot;')}" placeholder="Үнэ цэн" oninput="prizes[${i}].value=this.value">
-        <button class="del-btn" onclick="delPrize(${i})">×</button>
-      </div>
-      <div class="pe-img-row">
-        <img class="pe-thumb" src="${p.img||''}" style="${p.img?'display:block;':'display:none;'}">
-        <div class="pe-img-up">
-          <input type="file" accept="image/*" onchange="handlePrizeImg(event,${i})">
-          <span class="pe-img-up-btn">${p.img?'Зураг солих':'+ Зураг нэмэх'}</span>
-        </div>
-        ${p.img?`<button class="pe-img-clr" onclick="clearPrizeImg(${i})">Устгах</button>`:''}
-      </div>
-    </div>`).join('');
-  document.getElementById('prize-lbl').textContent=prizes.length+' шагнал';
-  el.scrollTop=scrollTop;
-}
-function handlePrizeImg(e,i){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{prizes[i].img=ev.target.result;renderEditor();};
-  r.readAsDataURL(f);
-}
-function clearPrizeImg(i){
-  prizes[i].img='';
-  renderEditor();
-}
-function addPrize(){
-  prizes.push({name:'',value:'',id:Date.now(),img:''});
-  renderEditor();
-  setTimeout(()=>{
-    const r=document.querySelectorAll('.pe-name');
-    r[r.length-1].focus();
-  },50);
-}
-function delPrize(i){
-  prizes.splice(i,1);
-  prizes.forEach((p,j)=>p.id=j+1);
-  if(drawOrder==='desc' && curIdx>=prizes.length) curIdx=prizes.length-1;
-  renderEditor();
-  renderDrawPage();
-}
-
-function getDur(){
-  return (parseInt(document.getElementById('cfg-dur').value)||10)*1000;
-}
-function startDraw(){
-  prizes=prizes.filter(p=>p.name.trim());
-  prizes.forEach((p,i)=>p.id=i+1);
-  winners={};
-  curIdx=drawOrder==='desc'?prizes.length-1:0;
-  document.getElementById('winner-wrap').innerHTML='';
-  document.getElementById('next-btn').style.display='none';
-  const { start } = getRange();
-  document.getElementById('counter').textContent=formatDrawNumber(start);
-  document.getElementById('counter').className='counter';
-  document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
-  document.getElementById('tbar-wrap').style.display='none';
-  updateSideDisplays();
-  nav('draw');
-}
-function getUsed(){
-  return new Set(Object.values(winners));
-}
-function pickRandom(){
-  const{start,end}=getRange();
-  const used=getUsed();
-  const pool=[];
-  for(let i=start;i<=end;i++){
-    if(!used.has(i))pool.push(i);
-  }
-  if(!pool.length)return null;
-  return pool[Math.floor(Math.random()*pool.length)];
-}
-function renderDrawPage(){
-  if(drawOrder==='asc'){
-    while(curIdx<prizes.length && winners[prizes[curIdx]?.id]!==undefined) curIdx++;
-  } else {
-    while(curIdx>=0 && winners[prizes[curIdx]?.id]!==undefined) curIdx--;
-  }
-
-  const finished = drawOrder==='asc' ? curIdx>=prizes.length : curIdx<0;
-  const list = drawOrder==='desc' ? [...prizes].reverse() : [...prizes];
-
-  document.getElementById('plist').innerHTML = list.map((p)=>{
-    const realIndex = prizes.findIndex(x => x.id === p.id);
-    const won = winners[p.id];
-    const isDone = won !== undefined;
-    const isCur = realIndex === curIdx && !isDone;
-
-    return `<div class="pl-row ${isDone?'done':''} ${isCur?'cur':''}">
-      <span class="pl-num">${p.id}</span>
-      ${p.img?`<img class="pl-thumb" src="${p.img}">`:''}
-      <span class="pl-name">${p.name}</span>
-      <span class="pl-val">${p.value}</span>
-      <span class="pl-st ${isDone?'st-d':'st-w'}">${isDone?'№'+formatDrawNumber(won):'...'}</span>
-    </div>`;
-  }).join('');
-
-  if(!finished){
-    const p=prizes[curIdx];
-    document.getElementById('pi-badge').textContent=p.id+'-р шагнал';
-    document.getElementById('pi-name').textContent=p.name;
-    document.getElementById('pi-val').textContent=p.value;
-    document.getElementById('pi-prog').textContent=Object.keys(winners).length+' / '+prizes.length;
-    document.getElementById('draw-btn').disabled=false;
-    document.getElementById('draw-btn').textContent='Сугалах';
-
-    if(!rolling && Object.keys(winners).length===0){
-      const { start } = getRange();
-      document.getElementById('counter').textContent=formatDrawNumber(start);
+  function secureRandomInt(min, max) {
+    if (!window.crypto || !window.crypto.getRandomValues) {
+      throw new Error('Secure random дэмжигдэхгүй байна.');
     }
-  } else {
-    document.getElementById('pi-badge').textContent='Дууслаа';
-    document.getElementById('pi-name').textContent='Бүх шагнал тараагдлаа!';
-    document.getElementById('pi-val').textContent='';
-    document.getElementById('pi-prog').textContent=prizes.length+' / '+prizes.length;
-    document.getElementById('draw-btn').disabled=true;
-    document.getElementById('draw-btn').textContent='Дууссан';
+
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    if (max < min) {
+      throw new Error('Invalid random range');
+    }
+
+    const range = max - min + 1;
+    if (range <= 0) {
+      throw new Error('Range overflow');
+    }
+
+    const maxUint32 = 0xFFFFFFFF;
+    const limit = maxUint32 - ((maxUint32 + 1) % range);
+
+    const buf = new Uint32Array(1);
+    let rand;
+
+    do {
+      window.crypto.getRandomValues(buf);
+      rand = buf[0];
+    } while (rand > limit);
+
+    return min + (rand % range);
   }
-}
-function doDraw(){
-  const finished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
-  if(rolling||finished)return;
-  const final=pickRandom();
-  if(!final){
-    alert('Оролцогч хүрэлцэхгүй байна!');
-    return;
+
+  function refreshNumberViews(){
+    checkTamper();
+
+    if(!rolling){
+      const finished = drawOrder==='asc' ? curIdx>=prizes.length : curIdx<0;
+      if(Object.keys(winners).length===0 && !finished){
+        const { start } = getActiveRange();
+        document.getElementById('counter').textContent = formatDrawNumber(start);
+      }
+    }
+    renderDrawPage();
+    renderResults();
   }
 
-  rolling=true;
-  document.getElementById('draw-btn').disabled=true;
-  document.getElementById('winner-wrap').innerHTML='';
-  document.getElementById('next-btn').style.display='none';
+  function setDrawOrder(o){
+    if (drawLocked) return;
+    drawOrder=o;
+    document.getElementById('ord-asc').classList.toggle('on',o==='asc');
+    document.getElementById('ord-desc').classList.toggle('on',o==='desc');
+    if(Object.keys(winners).length===0){
+      curIdx = drawOrder==='desc' ? prizes.length-1 : 0;
+    }
+    renderDrawPage();
+  }
 
-  const counter=document.getElementById('counter');
-  const hint=document.getElementById('ctr-hint');
-  const bw=document.getElementById('tbar-wrap');
-  const bar=document.getElementById('tbar');
+  function setFontSize(s){
+    descStyle.size=s;
+    ['xs','sm','md','lg','xl'].forEach(k=>document.getElementById('fsz-'+k).classList.toggle('on',k===s));
+    applyDescStyle();
+  }
 
-  counter.className='counter roll';
-  hint.textContent='Эргэж байна...';
-  bw.style.display='block';
-  bar.style.transition='none';
-  bar.style.width='100%';
+  function setDescColor(el){
+    descStyle.color=el.dataset.color;
+    document.querySelectorAll('.swatch').forEach(e=>e.classList.toggle('on',e===el));
+    applyDescStyle();
+  }
 
-  const dur=getDur();
-  const{start,end}=getRange();
-  let elapsed=0,last=null;
+  function toggleDescBold(){
+    descStyle.bold=!descStyle.bold;
+    document.getElementById('desc-bold').classList.toggle('on',descStyle.bold);
+    applyDescStyle();
+  }
 
-  setTimeout(()=>{
-    bar.style.transition='width '+dur+'ms linear';
-    bar.style.width='0%';
-  },30);
+  function toggleDescItalic(){
+    descStyle.italic=!descStyle.italic;
+    document.getElementById('desc-italic').classList.toggle('on',descStyle.italic);
+    applyDescStyle();
+  }
 
-  function tick(ts){
-    if(!last)last=ts;
-    elapsed+=ts-last;
-    last=ts;
-    const prog=Math.min(elapsed/dur,1);
-    const eased=1-Math.pow(1-prog,3);
-    counter.textContent=formatDrawNumber(Math.round(start+Math.random()*(end-start)));
+  function setDescAlign(a){
+    descStyle.align=a;
+    ['left','center','right'].forEach(k=>document.getElementById('al-'+k).classList.toggle('on',k===a));
+    applyDescStyle();
+  }
 
-    if(elapsed<dur){
-      setTimeout(()=>requestAnimationFrame(tick),eased>.85?120:eased>.65?60:eased>.4?30:16);
+  function applyDescStyle(){
+    const el=document.getElementById('display-desc');
+    el.style.fontSize=fontSizeMap[descStyle.size];
+    el.style.color=descStyle.color;
+    el.style.fontWeight=descStyle.bold?'600':'400';
+    el.style.fontStyle=descStyle.italic?'italic':'normal';
+    el.style.textAlign=descStyle.align;
+
+    const pv=document.getElementById('desc-preview');
+    const pt=document.getElementById('desc-preview-text');
+    const txt=document.getElementById('cfg-desc').value.trim();
+    if(txt){
+      pt.textContent=txt;
+      pt.style.fontSize=fontSizeMap[descStyle.size];
+      pt.style.color=descStyle.color;
+      pt.style.fontWeight=descStyle.bold?'600':'400';
+      pt.style.fontStyle=descStyle.italic?'italic':'normal';
+      pt.style.textAlign=descStyle.align;
+      pv.style.display='block';
     } else {
-      counter.textContent=formatDrawNumber(final);
-      counter.className='counter win';
-      hint.textContent='Азтан шалгарлаа!';
-      bw.style.display='none';
-
-      const p=prizes[curIdx];
-      winners[p.id]=final;
-      rolling=false;
-
-      document.getElementById('winner-wrap').innerHTML=`
-        <div class="winner-reveal">
-          ${p.img?`<img class="wr-img" src="${p.img}" alt="${p.name}">`:''}
-          <div class="wr-top"><div class="wr-num">№ ${formatDrawNumber(final)}</div><div class="wr-label">Азтан шалгарлаа!</div></div>
-          <div class="wr-bottom"><div class="wr-prize">${p.name}</div><div class="wr-val">${p.value}</div></div>
-        </div>`;
-
-      if(drawOrder==='asc')curIdx++;else curIdx--;
-      renderDrawPage();
-      renderResults();
-
-      const nextFinished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
-      if(!nextFinished)document.getElementById('next-btn').style.display='block';
+      pv.style.display='none';
     }
   }
-  requestAnimationFrame(tick);
-}
-function doNext(){
-  document.getElementById('winner-wrap').innerHTML='';
-  document.getElementById('next-btn').style.display='none';
-  const { start } = getRange();
-  document.getElementById('counter').textContent=formatDrawNumber(start);
-  document.getElementById('counter').className='counter';
-  document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
-  document.getElementById('tbar-wrap').style.display='none';
-  renderDrawPage();
-}
-function renderResults(){
-  const done=Object.keys(winners).length;
-  const{start,end}=getRange();
-  document.getElementById('s-done').textContent=done;
-  document.getElementById('s-left').textContent=prizes.length-done;
-  document.getElementById('s-total').textContent=end-start+1;
-  const el=document.getElementById('log-list');
-  const entries=Object.entries(winners);
-  if(!entries.length){
-    el.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:.75rem 0;">Одоохондоо үр дүн байхгүй</div>';
-    return;
+
+  function setImgType(t){
+    if (drawLocked) return;
+    hdrType=t;
+    ['none','banner','thumb'].forEach(k=>document.getElementById('ibt-'+k).classList.toggle('on',k===t));
+    document.getElementById('hdr-upload-wrap').style.display=t==='none'?'none':'block';
+    if(t==='none')removeHdrImg();
+    applyHdrImg();
   }
-  el.innerHTML=[...entries].reverse().map(([pid,wnum])=>{
-    const p=prizes.find(x=>x.id==pid);
-    return `<div class="log-row">
-      ${p&&p.img?`<img src="${p.img}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;flex-shrink:0;">`:''}
-      <span class="log-badge">${pid}-р</span>
-      <span class="log-name">${p?p.name:''}</span>
-      <span class="log-num">№ ${formatDrawNumber(wnum)}</span>
-    </div>`;
-  }).join('');
-}
-function resetAll(){
-  if(!confirm('Бүх үр дүнг устгах уу?'))return;
-  winners={};
-  curIdx=drawOrder==='desc'?prizes.length-1:0;
-  document.getElementById('winner-wrap').innerHTML='';
-  document.getElementById('next-btn').style.display='none';
-  const { start } = getRange();
-  document.getElementById('counter').textContent=formatDrawNumber(start);
-  document.getElementById('counter').className='counter';
-  document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
-  document.getElementById('tbar-wrap').style.display='none';
+
+  function handleHdrImg(e){
+    if (drawLocked) return;
+    const f=e.target.files[0];
+    if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{hdrImg=ev.target.result;showHdrPrev();applyHdrImg();};
+    r.readAsDataURL(f);
+  }
+
+  function showHdrPrev(){
+    document.getElementById('hdr-area-wrap').style.display='none';
+    const pw=document.getElementById('hdr-prev-wrap');
+    document.getElementById('hdr-prev').src=hdrImg;
+    pw.classList.toggle('tmode',hdrType==='thumb');
+    pw.style.display='block';
+  }
+
+  function removeHdrImg(){
+    if (drawLocked) return;
+    hdrImg='';
+    document.getElementById('hdr-prev').src='';
+    document.getElementById('hdr-area-wrap').style.display='block';
+    document.getElementById('hdr-prev-wrap').style.display='none';
+    applyHdrImg();
+  }
+
+  function applyHdrImg(){
+    const banner=document.getElementById('header-banner');
+    const thumb=document.getElementById('header-thumb');
+    const titles=document.getElementById('header-titles');
+    banner.style.display='none';thumb.style.display='none';
+    titles.classList.remove('has-thumb');
+    if(!hdrImg||hdrType==='none')return;
+    if(hdrType==='banner'){
+      document.getElementById('banner-img').src=hdrImg;
+      banner.style.display='block';
+    }else{
+      document.getElementById('thumb-img').src=hdrImg;
+      thumb.style.display='block';
+      titles.classList.add('has-thumb');
+    }
+  }
+
+  function handleSideImg(e,idx){
+    if (drawLocked) return;
+    const f=e.target.files[0];
+    if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{sideImgs[idx]=ev.target.result;applySideImg(idx);};
+    r.readAsDataURL(f);
+  }
+
+  function removeSideImg(idx){
+    if (drawLocked) return;
+    sideImgs[idx]='';
+    applySideImg(idx);
+  }
+
+  function applySideImg(idx){
+    const src=sideImgs[idx];
+    const prev=document.getElementById('side-prev-'+idx);
+    const upload=document.getElementById('side-upload-'+idx);
+    document.getElementById('side-img-'+idx).src=src||'';
+    prev.style.display=src?'block':'none';
+    upload.style.display=src?'none':'flex';
+    updateSideDisplays();
+  }
+
+  function updateSideDisplays(){
+    const any=sideImgs.some(s=>s);
+
+    const sd=document.getElementById('side-draw');
+    document.getElementById('sd0').src=sideImgs[0]||'';
+    document.getElementById('sd0').style.display=sideImgs[0]?'block':'none';
+    document.getElementById('sd1').src=sideImgs[1]||'';
+    document.getElementById('sd1').style.display=sideImgs[1]?'block':'none';
+    sd.classList.toggle('visible',any);
+
+    const sr=document.getElementById('side-results');
+    document.getElementById('sr0').src=sideImgs[0]||'';
+    document.getElementById('sr0').style.display=sideImgs[0]?'block':'none';
+    document.getElementById('sr1').src=sideImgs[1]||'';
+    document.getElementById('sr1').style.display=sideImgs[1]?'block':'none';
+    sr.classList.toggle('visible',any);
+
+    const outerLeft=document.getElementById('outer-side-left');
+    const outerRight=document.getElementById('outer-side-right');
+    const outerImgLeft=document.getElementById('outer-img-left');
+    const outerImgRight=document.getElementById('outer-img-right');
+
+    outerImgLeft.src=sideImgs[0]||'';
+    outerImgRight.src=sideImgs[1]||'';
+
+    outerLeft.classList.toggle('has-image',!!sideImgs[0]);
+    outerRight.classList.toggle('has-image',!!sideImgs[1]);
+
+    const shell = document.querySelector('.layout-shell');
+    shell.classList.toggle('no-side', !any);
+  }
+
+  function updateHeader(){
+    const t=document.getElementById('cfg-title').value||'Хандивын сугалаа';
+    const s=document.getElementById('cfg-subtitle').value.trim();
+    const d=document.getElementById('cfg-desc').value.trim();
+    document.getElementById('display-title').textContent=t;
+    document.title=t;
+    const se=document.getElementById('display-subtitle');
+    se.textContent=s;se.style.display=s?'block':'none';
+    const de=document.getElementById('display-desc');
+    de.textContent=d;de.style.display=d?'block':'none';
+    applyDescStyle();
+  }
+
+  function nav(t){
+    ['setup','draw','results'].forEach(k=>{
+      document.getElementById('pg-'+k).classList.toggle('on',k===t);
+      document.getElementById('nb-'+k).classList.toggle('on',k===t);
+    });
+    if(t==='draw')renderDrawPage();
+    if(t==='results')renderResults();
+  }
+
+  function renderEditor(){
+    const el=document.getElementById('pe-list');
+    const scrollTop=el.scrollTop;
+
+    el.innerHTML=prizes.map((p,i)=>`
+      <div class="pe">
+        <div class="pe-main">
+          <span class="pe-n">${i+1}</span>
+          <input class="pe-name" value="${esc(p.name)}" placeholder="Шагналын нэр" ${drawLocked?'disabled':''} oninput="setPrizeField(${i}, 'name', this.value)">
+          <input class="pe-val" value="${esc(p.value)}" placeholder="Үнэ цэн" ${drawLocked?'disabled':''} oninput="setPrizeField(${i}, 'value', this.value)">
+          <button class="del-btn" ${drawLocked?'disabled':''} onclick="delPrize(${i})">×</button>
+        </div>
+        <div class="pe-img-row">
+          <img class="pe-thumb" src="${p.img||''}" style="${p.img?'display:block;':'display:none;'}">
+          <div class="pe-img-up">
+            <input type="file" accept="image/*" ${drawLocked?'disabled':''} onchange="handlePrizeImg(event,${i})">
+            <span class="pe-img-up-btn">${p.img?'Зураг солих':'+ Зураг нэмэх'}</span>
+          </div>
+          ${p.img?`<button class="pe-img-clr" ${drawLocked?'disabled':''} onclick="clearPrizeImg(${i})">Устгах</button>`:''}
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('prize-lbl').textContent=prizes.length+' шагнал';
+    el.scrollTop=scrollTop;
+  }
+
+  function setPrizeField(i, key, value){
+    if (drawLocked) return;
+    if (!prizes[i]) return;
+    prizes[i][key] = value;
+  }
+
+  function handlePrizeImg(e,i){
+    if (drawLocked) return;
+    const f=e.target.files[0];
+    if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{prizes[i].img=ev.target.result;renderEditor();};
+    r.readAsDataURL(f);
+  }
+
+  function clearPrizeImg(i){
+    if (drawLocked) return;
+    prizes[i].img='';
+    renderEditor();
+  }
+
+  function addPrize(){
+    if (drawLocked) return;
+    prizes.push({name:'',value:'',id:Date.now(),img:''});
+    renderEditor();
+    setTimeout(()=>{
+      const r=document.querySelectorAll('.pe-name');
+      if (r.length) r[r.length-1].focus();
+    },50);
+  }
+
+  function delPrize(i){
+    if (drawLocked) return;
+    prizes.splice(i,1);
+    prizes.forEach((p,j)=>p.id=j+1);
+    if(drawOrder==='desc' && curIdx>=prizes.length) curIdx=prizes.length-1;
+    renderEditor();
+    renderDrawPage();
+  }
+
+  function lockSetupUI(){
+    drawLocked = true;
+    ui.lockState.style.display = 'block';
+
+    [
+      ui.total, ui.start, ui.dur,
+      document.getElementById('cfg-title'),
+      document.getElementById('cfg-subtitle'),
+      document.getElementById('cfg-desc')
+    ].forEach(el => { if (el) el.disabled = true; });
+
+    document.querySelectorAll(
+      '.itype-btn, .fsz-btn, .bold-btn, .italic-btn, .align-btn, .swatch, .add-btn, .rm-btn, .upload-area input[type=file], .side-upload input[type=file]'
+    ).forEach(el => {
+      if ('disabled' in el) el.disabled = true;
+      el.style.pointerEvents = 'none';
+    });
+
+    renderEditor();
+  }
+
+  function unlockSetupUI(){
+    drawLocked = false;
+    ui.lockState.style.display = 'none';
+
+    [
+      ui.total, ui.start, ui.dur,
+      document.getElementById('cfg-title'),
+      document.getElementById('cfg-subtitle'),
+      document.getElementById('cfg-desc')
+    ].forEach(el => { if (el) el.disabled = false; });
+
+    document.querySelectorAll(
+      '.itype-btn, .fsz-btn, .bold-btn, .italic-btn, .align-btn, .add-btn, .rm-btn, .upload-area input[type=file], .side-upload input[type=file]'
+    ).forEach(el => {
+      if ('disabled' in el) el.disabled = false;
+      el.style.pointerEvents = '';
+    });
+
+    document.querySelectorAll('.swatch').forEach(el => {
+      el.style.pointerEvents = '';
+    });
+
+    renderEditor();
+  }
+
+  function startDraw(){
+    clearTamper();
+
+    const cleanPrizes = prizes
+      .filter(p => (p.name || '').trim())
+      .map((p, i) => ({
+        name: (p.name || '').trim(),
+        value: (p.value || '').trim(),
+        id: i + 1,
+        img: p.img || ''
+      }));
+
+    if (!cleanPrizes.length) {
+      alert('Хамгийн багадаа 1 шагналын нэр оруулна уу.');
+      return;
+    }
+
+    prizes = cleanPrizes;
+    winners = {};
+    curIdx = drawOrder === 'desc' ? prizes.length - 1 : 0;
+
+    drawSnapshot = snapshotConfig();
+    lockSetupUI();
+
+    document.getElementById('winner-wrap').innerHTML='';
+    document.getElementById('next-btn').style.display='none';
+
+    const { start } = getActiveRange();
+    document.getElementById('counter').textContent=formatDrawNumber(start);
+    document.getElementById('counter').className='counter';
+    document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
+    document.getElementById('tbar-wrap').style.display='none';
+
+    updateSideDisplays();
+    renderDrawPage();
+    renderResults();
+    nav('draw');
+  }
+
+  function getUsed(){
+    return new Set(Object.values(winners));
+  }
+
+  function pickRandom(){
+    checkTamper();
+    if (tamperDetected) return null;
+
+    const { start, end } = getActiveRange();
+    const used = getUsed();
+    const pool = [];
+
+    for(let i=start;i<=end;i++){
+      if(!used.has(i)) pool.push(i);
+    }
+
+    if(!pool.length) return null;
+
+    const idx = secureRandomInt(0, pool.length - 1);
+    return pool[idx];
+  }
+
+  function renderDrawPage(){
+    if(drawOrder==='asc'){
+      while(curIdx<prizes.length && winners[prizes[curIdx]?.id]!==undefined) curIdx++;
+    } else {
+      while(curIdx>=0 && winners[prizes[curIdx]?.id]!==undefined) curIdx--;
+    }
+
+    const finished = drawOrder==='asc' ? curIdx>=prizes.length : curIdx<0;
+    const list = drawOrder==='desc' ? [...prizes].reverse() : [...prizes];
+
+    document.getElementById('plist').innerHTML = list.map((p)=>{
+      const realIndex = prizes.findIndex(x => x.id === p.id);
+      const won = winners[p.id];
+      const isDone = won !== undefined;
+      const isCur = realIndex === curIdx && !isDone;
+
+      return `<div class="pl-row ${isDone?'done':''} ${isCur?'cur':''}">
+        <span class="pl-num">${p.id}</span>
+        ${p.img?`<img class="pl-thumb" src="${esc(p.img)}">`:''}
+        <span class="pl-name">${esc(p.name)}</span>
+        <span class="pl-val">${esc(p.value)}</span>
+        <span class="pl-st ${isDone?'st-d':'st-w'}">${isDone?'№'+formatDrawNumber(won):'...'}</span>
+      </div>`;
+    }).join('');
+
+    if(!finished){
+      const p=prizes[curIdx];
+      document.getElementById('pi-badge').textContent=p.id+'-р шагнал';
+      document.getElementById('pi-name').textContent=p.name;
+      document.getElementById('pi-val').textContent=p.value;
+      document.getElementById('pi-prog').textContent=Object.keys(winners).length+' / '+prizes.length;
+      document.getElementById('draw-btn').disabled=tamperDetected;
+      document.getElementById('draw-btn').textContent=tamperDetected?'Түгжигдсэн':'Сугалах';
+
+      if(!rolling && Object.keys(winners).length===0){
+        const { start } = getActiveRange();
+        document.getElementById('counter').textContent=formatDrawNumber(start);
+      }
+    } else {
+      document.getElementById('pi-badge').textContent='Дууслаа';
+      document.getElementById('pi-name').textContent='Бүх шагнал тараагдлаа!';
+      document.getElementById('pi-val').textContent='';
+      document.getElementById('pi-prog').textContent=prizes.length+' / '+prizes.length;
+      document.getElementById('draw-btn').disabled=true;
+      document.getElementById('draw-btn').textContent='Дууссан';
+    }
+  }
+
+  function doDraw(){
+    checkTamper();
+
+    const finished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
+    if(rolling || finished || tamperDetected) return;
+
+    let final;
+    try {
+      final = pickRandom();
+    } catch (e) {
+      alert('Secure random ажиллуулах үед алдаа гарлаа: ' + e.message);
+      return;
+    }
+
+    if(!final){
+      alert('Оролцогч хүрэлцэхгүй байна эсвэл систем түгжигдсэн байна.');
+      return;
+    }
+
+    rolling=true;
+    document.getElementById('draw-btn').disabled=true;
+    document.getElementById('winner-wrap').innerHTML='';
+    document.getElementById('next-btn').style.display='none';
+
+    const counter=document.getElementById('counter');
+    const hint=document.getElementById('ctr-hint');
+    const bw=document.getElementById('tbar-wrap');
+    const bar=document.getElementById('tbar');
+
+    counter.className='counter roll';
+    hint.textContent='Эргэж байна...';
+    bw.style.display='block';
+    bar.style.transition='none';
+    bar.style.width='100%';
+
+    const dur=getDur();
+    const { start, end } = getActiveRange();
+    let elapsed=0,last=null;
+
+    setTimeout(()=>{
+      bar.style.transition='width '+dur+'ms linear';
+      bar.style.width='0%';
+    },30);
+
+    function tick(ts){
+      if(!last)last=ts;
+      elapsed+=ts-last;
+      last=ts;
+
+      const prog=Math.min(elapsed/dur,1);
+      const eased=1-Math.pow(1-prog,3);
+
+      let fakeNum;
+      try {
+        fakeNum = secureRandomInt(start, end);
+      } catch {
+        fakeNum = start;
+      }
+      counter.textContent = formatDrawNumber(fakeNum);
+
+      if(elapsed<dur){
+        setTimeout(()=>requestAnimationFrame(tick),eased>.85?120:eased>.65?60:eased>.4?30:16);
+      } else {
+        counter.textContent=formatDrawNumber(final);
+        counter.className='counter win';
+        hint.textContent='Азтан шалгарлаа!';
+        bw.style.display='none';
+
+        const p=prizes[curIdx];
+        winners[p.id]=final;
+        rolling=false;
+
+        document.getElementById('winner-wrap').innerHTML=`
+          <div class="winner-reveal">
+            ${p.img?`<img class="wr-img" src="${esc(p.img)}" alt="${esc(p.name)}">`:''}
+            <div class="wr-top"><div class="wr-num">№ ${formatDrawNumber(final)}</div><div class="wr-label">Азтан шалгарлаа!</div></div>
+            <div class="wr-bottom"><div class="wr-prize">${esc(p.name)}</div><div class="wr-val">${esc(p.value)}</div></div>
+          </div>`;
+
+        if(drawOrder==='asc') curIdx++;
+        else curIdx--;
+
+        renderDrawPage();
+        renderResults();
+
+        const nextFinished=drawOrder==='asc'?curIdx>=prizes.length:curIdx<0;
+        if(!nextFinished) document.getElementById('next-btn').style.display='block';
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function doNext(){
+    checkTamper();
+    document.getElementById('winner-wrap').innerHTML='';
+    document.getElementById('next-btn').style.display='none';
+    const { start } = getActiveRange();
+    document.getElementById('counter').textContent=formatDrawNumber(start);
+    document.getElementById('counter').className='counter';
+    document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
+    document.getElementById('tbar-wrap').style.display='none';
+    renderDrawPage();
+  }
+
+  function renderResults(){
+    const done=Object.keys(winners).length;
+    const { start, end } = getActiveRange();
+    document.getElementById('s-done').textContent=done;
+    document.getElementById('s-left').textContent=prizes.length-done;
+    document.getElementById('s-total').textContent=end-start+1;
+
+    const el=document.getElementById('log-list');
+    const entries=Object.entries(winners);
+
+    if(!entries.length){
+      el.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:.75rem 0;">Одоохондоо үр дүн байхгүй</div>';
+      return;
+    }
+
+    el.innerHTML=[...entries].reverse().map(([pid,wnum])=>{
+      const p=prizes.find(x=>x.id==pid);
+      return `<div class="log-row">
+        ${p&&p.img?`<img src="${esc(p.img)}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;flex-shrink:0;">`:''}
+        <span class="log-badge">${pid}-р</span>
+        <span class="log-name">${esc(p?p.name:'')}</span>
+        <span class="log-num">№ ${formatDrawNumber(wnum)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function resetAll(){
+    if(!confirm('Бүх үр дүнг устгаж, тохиргооны түгжээг тайлах уу?')) return;
+
+    winners={};
+    curIdx=drawOrder==='desc'?prizes.length-1:0;
+    drawSnapshot = null;
+    clearTamper();
+    unlockSetupUI();
+
+    document.getElementById('winner-wrap').innerHTML='';
+    document.getElementById('next-btn').style.display='none';
+
+    const { start } = getRange();
+    document.getElementById('counter').textContent=formatDrawNumber(start);
+    document.getElementById('counter').className='counter';
+    document.getElementById('ctr-hint').textContent='Сугалахад бэлэн';
+    document.getElementById('tbar-wrap').style.display='none';
+
+    renderDrawPage();
+    renderResults();
+  }
+
+  // expose only UI hooks needed by inline onclick
+  window.nav = nav;
+  window.updateHeader = updateHeader;
+  window.setFontSize = setFontSize;
+  window.setDescColor = setDescColor;
+  window.toggleDescBold = toggleDescBold;
+  window.toggleDescItalic = toggleDescItalic;
+  window.setDescAlign = setDescAlign;
+  window.setImgType = setImgType;
+  window.handleHdrImg = handleHdrImg;
+  window.removeHdrImg = removeHdrImg;
+  window.handleSideImg = handleSideImg;
+  window.removeSideImg = removeSideImg;
+  window.refreshNumberViews = refreshNumberViews;
+  window.setDrawOrder = setDrawOrder;
+  window.addPrize = addPrize;
+  window.delPrize = delPrize;
+  window.handlePrizeImg = handlePrizeImg;
+  window.clearPrizeImg = clearPrizeImg;
+  window.startDraw = startDraw;
+  window.doDraw = doDraw;
+  window.doNext = doNext;
+  window.resetAll = resetAll;
+  window.setPrizeField = setPrizeField;
+
+  renderEditor();
+  updateHeader();
+  updateSideDisplays();
   renderDrawPage();
   renderResults();
-}
-
-renderEditor();
-updateHeader();
-updateSideDisplays();
-renderDrawPage();
-renderResults();
-refreshNumberViews();
+  refreshNumberViews();
+})();
 </script>
 </body>
 </html>
